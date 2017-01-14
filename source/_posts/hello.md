@@ -1,14 +1,14 @@
 ---
 title: Git 的Push和Pull
-categories: "Hexo教程2" 
+categories: "Hexo教程1"
 tags: 
-     - 标签1
-description: 456
+     - 标签2
+ description: 123
 ---
 
 * **Git pull**     
 
-git pull命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并1。      
+git pull命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。      
 ```
 $ git pull origin master:master 
 ```
@@ -17,7 +17,7 @@ $ git pull origin master:master
 ```
 $ git pull origin master ##取回远程仓库的master分支并和当前分支合并  
 ``` 
-<!--more-->     
+<!--more-->
 等价于 
 ```bash
 $ git fetch origin  ##取回远程仓库的所有分支的更新(后面可指定分支)

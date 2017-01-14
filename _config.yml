@@ -74,6 +74,6 @@ deploy:
 
 
 
-auto_excerpt:
-  enable: true
-  length: 150
+# auto_excerpt:
+#   enable: true
+#   length: 250
