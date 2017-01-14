@@ -67,6 +67,7 @@ theme: yelee
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
+## npm install hexo-deployer-git --save
 deploy:
   type: git
   repo: https://github.com/leepengcheng/blog
