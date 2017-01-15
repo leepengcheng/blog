@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Aimo
-subtitle:  码农之路
-description: 机械狗
-author: Lee Peng Cheng
+title: 码农那些事
+subtitle: 码农是怎样炼成的
+description: 精通C/C++/C#/Java/JavaScript/Tcl/Python的HellWorld编程方法
+author: 烫烫屯
 language: zh-Hans
 timezone:
 
