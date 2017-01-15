@@ -17,7 +17,7 @@ menu:
 avatar: /blog/img/avatar.png
 
 # Small icon of Your site | 站点小图标地址
-favicon: /blog/favicon.png
+favicon: /blog/favicon.ico
 
 # Internationalization | 主题语言
 ## Change Language in SITE's _config.yml | 在站点配置中切换语言
