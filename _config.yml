@@ -4,8 +4,8 @@
 
 # Site
 title: Aimo
-subtitle:  Hello World
-description: 10086123
+subtitle:  码农之路
+description: 机械狗
 author: Lee Peng Cheng
 language: zh-Hans
 timezone:
@@ -14,7 +14,7 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://github.com/leepengcheng/blog
 root: /blog/
-permalink: :year/:month/:day/:title/
+permalink: :year/:title/
 permalink_defaults:
 
 # Directory
@@ -71,9 +71,3 @@ deploy:
   type: git
   repo: https://github.com/leepengcheng/blog
   branch: gh-pages
-
-
-
-# auto_excerpt:
-#   enable: true
-#   length: 250

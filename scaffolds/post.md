@@ -1,5 +1,6 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags:
+categories: "随笔"
+tags: ["随笔"]
 ---
