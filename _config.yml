@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 码农那些事
-subtitle: 码农是怎样炼成的
-description: 精通C/C++/C#/Java/JavaScript/Tcl/Python的HellWorld编程方法
+title: Aimo的笔记
+subtitle: 写代码的农民
+description: 一只机械汪转战码农的点点滴滴
 author: 烫烫屯
 language: zh-Hans
-timezone:
+timezone: 
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
