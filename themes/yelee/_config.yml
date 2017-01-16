@@ -14,10 +14,10 @@ menu:
   关于我: /about/
 
 # Link to your avatar | 填写头像地址
-avatar: /blog/img/avatar.png
+avatar: /img/avatar.png
 
 # Small icon of Your site | 站点小图标地址
-favicon: /blog/favicon.ico
+favicon: /favicon.ico
 
 # Internationalization | 主题语言
 ## Change Language in SITE's _config.yml | 在站点配置中切换语言
@@ -267,8 +267,3 @@ CDN:
   mathjax: //cdn.bootcss.com/mathjax/2.6.1/MathJax.js
   scrollreveal: //cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js
 
-##文章截取,显示<阅读本文>按钮
-##最大显示字数150字
-auto_excerpt:
-  enable: true
-  length: 150
