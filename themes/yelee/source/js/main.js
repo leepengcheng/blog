@@ -9,7 +9,7 @@ require([], function (){
     }
     var isPCInit = false;
     var loadPC = function(){
-        require([yiliaConfig.rootUrl + 'js/pc.js'], function(pc){
+        require([yiliaConfig.rootUrl + 'blog/js/pc.js'], function(pc){
             pc.init();
             isPCInit = true;
         })

@@ -163,7 +163,7 @@ define([], function(){
 
     if (yiliaConfig.search) {
         var search = function(){
-            require([yiliaConfig.rootUrl + 'js/search.js'], function(){
+            require([yiliaConfig.rootUrl + 'blog/js/search.js'], function(){
                 var inputArea = document.querySelector("#local-search-input");
                 var $HideWhenSearch = $("#toc, #tocButton, .post-list, #post-nav-button a:nth-child(2)");
                 var $resetButton = $("#search-form .fa-times");

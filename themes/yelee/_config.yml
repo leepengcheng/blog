@@ -7,17 +7,20 @@ Yelee: "3.5"
 ## About Page: `hexo new page about`
 ## Tags Cloud Page: `hexo new page tags`
 menu:
-  主页: /
-  所有文章: /archives/
-  #随笔: /tags/随笔
-  标签云: /tags/
-  关于我: /about/
+  # 主页: /
+  # 所有文章: /archives/
+  机器学习: /categories/ml
+  C++: /categories/cpp
+  web开发: /categories/javaweb
+  爬虫: /categories/spider
+  其他: /categories/others
+  
 
 # Link to your avatar | 填写头像地址
-avatar: /img/avatar.png
+avatar: /blog/avatar.png
 
 # Small icon of Your site | 站点小图标地址
-favicon: /favicon.ico
+favicon: /blog/favicon.ico
 
 # Internationalization | 主题语言
 ## Change Language in SITE's _config.yml | 在站点配置中切换语言
@@ -28,10 +31,10 @@ favicon: /favicon.ico
 ## If your site' url is 'http://yoursite.com/blog', set root_url as '/blog/'
 ## 网站若存放在子目录，请按上面格式填写
 ## https://hexo.io/docs/configuration.html#URL
-root_url: /blog/
+# root_url: /blog/
 
 # Year of Site Creation | 网站成立年份
-since: 2017
+since: 2016
 
 # Social info. Bar | 社交信息展示
 ## Keep "mailto:" in Email | 设置 Email 时保留 "mailto:"
@@ -40,7 +43,7 @@ since: 2017
 ## https://github.com/hexojs/hexo-generator-feed
 
 subnav:
-  Email: "340098816@qq.com"
+  # Email: "340098816@qq.com"
   GitHub: "https://github.com/leepengcheng"
   # RSS: "/atom.xml"
   #知乎: "zhihu"
@@ -49,7 +52,7 @@ subnav:
 # Chose ONE as your comment system and keep others disable.
 # 选一个作为网站评论系统，其他保持禁用。
 
-preload_comment: true
+preload_comment: false
 ## false: 当点击评论条等区域时再加载评论模块
 ## false: load comment's section until u click/hover on the bar/icon
 
@@ -130,7 +133,7 @@ toc:
 
 # 是否开启主页及加载头像时的动画效果
 # Animation in Homepage and Loading avatar
-animate: true
+animate: false
 
 # Load jQuery UI to style tooltips
 # 工具提示框样式美化
@@ -197,7 +200,7 @@ tab_title_change:
 ## Insatall below plugin to take effect | 使用搜索需先安装对应插件
 ## https://github.com/PaicHyperionDev/hexo-generator-search
 search: 
-  #on: true
+  on: false
   onload: false
   ## true: get search.xml file when the page has loaded
   ## false: get the file when search box gets focus
@@ -234,13 +237,13 @@ baidu_tongji:
 # 不计算子网站计数设置
 # http://ibruce.info/2015/04/04/busuanzi/
 visit_counter:
-  on: true
+  on: false
   site_visit: true
   page_visit: true
 
 # GitHub Repo Widget
 # https://github.com/hustcc/GitHub-Repo-Widget.js
-github_widget: false
+github_widget: true
 
 # Progress Bar | 页面加载进度条
 # Demo: http://github.hubspot.com/pace/docs/welcome/
