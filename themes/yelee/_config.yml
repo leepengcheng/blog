@@ -9,10 +9,9 @@ Yelee: "3.5"
 menu:
   # 主页: /
   # 所有文章: /archives/
+  slam: /categories/slam
   机器学习: /categories/ml
-  C++: /categories/cpp
-  web开发: /categories/javaweb
-  爬虫: /categories/spider
+  web开发: /categories/web
   其他: /categories/others
   
 
