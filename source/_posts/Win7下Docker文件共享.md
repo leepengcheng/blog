@@ -1,5 +1,5 @@
 ---
-title: Docker ToolBox 文件共享
+title: Win7下Docker文件共享
 categories: others
 tags:
   - docker
@@ -92,3 +92,5 @@ $ docker ps -n 5
 $ docker ps -a -q
 
 ```
+
+>0910更新:建议升级win10,然后使用`Docker for Windows`，体验完爆`Docker ToolBox`

@@ -1,6 +1,6 @@
 ---
-title: Qt 的css图像精灵
-categories: others
+title: Qt的CSS图像精灵
+categories: programming
 tags:
   - Qt
 date: 2017-02-07 15:27:13

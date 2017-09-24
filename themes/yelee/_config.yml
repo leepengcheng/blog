@@ -8,10 +8,10 @@ Yelee: "3.5"
 ## Tags Cloud Page: `hexo new page tags`
 menu:
   # 主页: /
-  # 所有文章: /archives/
-  slam: /categories/slam
-  机器学习: /categories/ml
-  web开发: /categories/web
+  所有文章: /archives/
+  机器人: /categories/robot
+  机器学习/视觉: /categories/ml
+  编程语言: /categories/programming
   其他: /categories/others
   
 

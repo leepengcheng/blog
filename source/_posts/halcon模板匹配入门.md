@@ -1,9 +1,8 @@
 ---
-title: halcon之模板匹配
+title: halcon模板匹配入门
 categories: ml
 tags:
   - halcon
-  - cv
 date: 2017-03-07 17:30:10
 ---
 

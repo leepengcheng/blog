@@ -1,6 +1,6 @@
 ---
 title: C++动态加载Dll
-categories: others
+categories: programming
 tags:
   - Qt
 date: 2017-02-07 09:30:22

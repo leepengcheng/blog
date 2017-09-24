@@ -1,6 +1,6 @@
 ---
-title: anaconda catkin_make失败
-categories: others
+title: 安装anaconda后catkin_make报错解决办法
+categories: robot
 tags:
   - ros
 date: 2017-03-20 21:18:28
@@ -32,3 +32,4 @@ conda install setuptools
 rosdep update
 ```
 然后就可以愉快的玩耍了。
+>9月24日补充:最好使用Ubuntu14.04自带的python版本，否则还会引起其他蛋疼的问题，需要什么包单独安装。

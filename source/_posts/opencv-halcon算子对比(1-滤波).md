@@ -1,13 +1,12 @@
 ---
-title: 图像识别概念合集
+title: opencv-halcon算子对比(1-滤波)
 categories: ml
 tags:
   - halcon
-  - cv
 date: 2017-04-12 23:04:22
 ---
 
-#### 1.滤波(filter)
+#### 滤波(filter)
 >均值滤波
 ```c++
 //halcon
@@ -43,8 +42,7 @@ GaussianBlur(image, imageGauss, Size(5, 5), 0, 0 )
  //opencv
 bilateralFilter( image, out, 25, 25*2, 25/2 );
 ```
-
-#### 形态学(morphology [mɔr'fɑlədʒi])
+#### 形态学(morphology)
 
 >膨胀
 (dilate [daɪˈlet])   

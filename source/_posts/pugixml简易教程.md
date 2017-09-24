@@ -1,6 +1,6 @@
 ---
-title: pugixml的使用要点
-categories: others
+title: pugixml简易教程
+categories: programming
 tags:
   - pugixml
 date: 2017-01-16 16:35:28

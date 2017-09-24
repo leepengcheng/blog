@@ -1,9 +1,8 @@
 ---
-title: pyspider编码
+title: pyspider爬虫框架的编码问题
 categories: others
 tags:
   - pyspider
-  - pyquery
 date: 2017-02-08 12:18:23
 ---
 

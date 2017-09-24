@@ -1,8 +1,8 @@
 ---
-title: SpringBoot 笔记
-categories: web
+title: SpringBoot笔记
+categories: others
 tags:
-  - springboot
+  - javaweb
 date: 2017-03-16 11:12:09
 ---
 

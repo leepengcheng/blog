@@ -1,8 +1,8 @@
 ---
 title: SpringMvc Maven设置
-categories: web
+categories: others
 tags:
-  - springmvc
+  - javaweb
 date: 2017-02-03 22:45:14
 ---
 

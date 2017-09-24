@@ -3,7 +3,6 @@ title: halcon学习笔记
 categories: ml
 tags:
   - halcon
-  - cv
 date: 2017-04-12 23:04:22
 ---
 
@@ -69,5 +68,3 @@ while (Count <= 4)
     * 从
     reduce_domain (Hue, Saturated, HueSaturated)
 ```
-
-#### 3.

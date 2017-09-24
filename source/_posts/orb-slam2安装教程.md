@@ -1,9 +1,9 @@
 ---
 title: orb-slam2安装教程
 date: 2017-01-10 15:12:39
-categories: slam
+categories: robot
 tags:
-  - orb-slam2
+  - slam
 ---
 
 
