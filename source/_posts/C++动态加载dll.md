@@ -2,7 +2,7 @@
 title: C++动态加载Dll
 categories: programming
 tags:
-  - Qt
+  - c++
 date: 2017-02-07 09:30:22
 ---
 

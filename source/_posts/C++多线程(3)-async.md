@@ -1,7 +1,8 @@
 ---
-title: C++多线程简介
+title: C++多线程之异步线程
 categories: programming
 tags:
+  - c++
   - 多线程
 date: 2017-09-25 00:07:40
 ---
