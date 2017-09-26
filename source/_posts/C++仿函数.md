@@ -3,8 +3,13 @@ title: C++仿函数
 categories: programming
 tags:
   - c++
+  - 仿函数
 date: 2017-09-26 22:18:14
 ---
+
+C++仿函数
+
+<!-- more -->
 
 ```c++
 #include <iostream>

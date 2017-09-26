@@ -2,6 +2,7 @@
 title: Qt的CSS图像精灵
 categories: programming
 tags:
+  - c++
   - Qt
 date: 2017-02-07 15:27:13
 ---

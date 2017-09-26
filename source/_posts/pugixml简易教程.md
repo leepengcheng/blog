@@ -2,7 +2,7 @@
 title: pugixml简易教程
 categories: programming
 tags:
-  - pugixml
+  - c++
 date: 2017-01-16 16:35:28
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: C++异常处理之noexcep之
+title: C++异常处理之noexcept
 categories: programming
 tags:
   - c++

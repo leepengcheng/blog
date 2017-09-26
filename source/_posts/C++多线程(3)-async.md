@@ -7,6 +7,8 @@ tags:
 date: 2017-09-25 00:07:40
 ---
 
+C++多线程之异步线程
+<!-- more -->
 ```c++
 #include <iostream>
 #include <thread>

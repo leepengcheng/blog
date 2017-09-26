@@ -8,7 +8,8 @@ date: 2017-09-25 00:07:40
 ---
 
 
-
+C++多线程之thread
+<!-- more -->
 
 ```c++
 #include <iostream>
