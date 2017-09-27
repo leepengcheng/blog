@@ -1,5 +1,5 @@
 ---
-title: C++计时之chrono
+title: C++时间库chrono
 categories: programming
 tags:
   - c++
