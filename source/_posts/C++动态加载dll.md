@@ -21,8 +21,12 @@ TEXT(“Tcl”)是自定义的资源类型,其他常用的用HTML ICON等资源�
 pBuffer是返回的资源文件的void指针,如果资源文件是文本,可以直接   
 转换为char*,然后输出字符串。
 <!--more-->
+
+#### 函数指针
+`typedef int(*Fun)(char*) ==using Fun=int(*)(char*)`
+
 #### 加载DLL
-首先需要定义加载的函数 `typedef int(*Fun)(char*)`
+
 ```c++
 //C++
 #include <windows.h>
