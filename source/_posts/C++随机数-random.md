@@ -4,7 +4,7 @@ categories: programming
 tags:
   - c++
   - 随机数
-date: 2017-09-26 22:18:14
+date: 2017-05-26 22:18:14
 ---
 
 >随机数由生成器(generator)和分布器(distributions)结合产生
@@ -45,6 +45,7 @@ vector<int> bad_gen_randInts()
 解决这一问题的正确方法是把引擎和分布定义为`static`的，这样他们的状态才会保持。第一次调用会使用   
 `u(e)`生成的前100个数，第二次会获得接下来的100个数，依次类推。 还可以用`rand_device`生成随机   
 种子填充引擎，例如`default_random_engine(rand_device()())`。
+
 ```c++  
 vector<int> good_gen_randInts()
 {
@@ -63,16 +64,16 @@ vector<int> good_gen_randInts()
 
 ####  分布器
 >能够把生成器产生的均匀分布值映射到其他常见分布，下面仅列出部分分布器类型
+
 * 均匀分布:  `uniform_int_distribution`,`uniform_real_distribution`
 * 正态分布: `normal_distribution`
 * 二项分布: `binomial_distribution`
 * 离散分布: `discrete_distribution`
 * 泊松分布: `poisson_distribution`
 * 努伯利分布： `bernoulli_distribution `
-* 其他分布: `gamma_distribution`
+* 其他分布: `gamma_distribution`   
 
-
-#### 使用方法
+#### 示例代码     
 ```c++
 #include <random>
 #include <iostream>
@@ -139,23 +140,21 @@ int wisdom = dice()+dice()+dice();
 ```
 
 
-#### shuffle和random_shuffle
-这两个函数位均位于于 `<algorithm>` 头文件之下。   
+#### shuffle函数
+`shuffle`和`random_shuffle`这两个函数位均位于于 `<algorithm>` 头文件之下。   
 * `random_shuffle`算法在C++11之前就已经存在，C++11之后由于右值引用的引入，它的使用范围变大了。   
 **该函数在c++14已弃用**，因为其采用了c函数，而且该函数采用全局状态的种子。`shuffle`的生成器采用`<random>`,    
 不会保存全局状态，而且可以使用生成器和分布(瞎比翻译请见谅)。
 
-```
-std::random_shuffle may make use, under the hood, of random C family of functions.     
+>std::random_shuffle may make use, under the hood, of random C family of functions.     
 These functions use global state for seeds and other state.
-
 So it is being deprecated because shuffle will do the same, but better.    
 Namely, it uses the new <random> header from C++11 that doesn't use global state,
-but its own objects making use of generators, devices and distributions. 
-```   
+but its own objects making use of generators, devices and distributions.   
 
-* `shuffle`算法则是从C++11之后才开始出现，可以与随机数和分布库一起使用。
+* `shuffle`算法是从C++11之后才开始出现，可以与随机数和分布库一起使用。
 ```c++
+//<!-- 示例代码 -->
 #include <vector>
 #include <algorithm>
 #include <random>
@@ -200,5 +199,4 @@ shuffle(nums, nums+n, defaultEngine);
 //random_shuffle(a.begin(), a.end(), sg);
 //random_shuffle(a.begin(), a.end(), myrandom);
 }
-
 ```
