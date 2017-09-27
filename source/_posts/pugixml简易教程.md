@@ -7,27 +7,9 @@ date: 2017-01-16 16:35:28
 ---
 
 >C++的Xml解析库五花八门,比如QtXml tinyxml等,相比而还是觉得pugixml好用些。     
->扑街xml的api清晰简洁,速度也挺快,还支持Xpath,使用很方便。   
->扑街xml官网： [pugixml.org](http://pugixml.org/ "扑街XML")
+pugixml的api清晰简洁,速度也挺快,还支持Xpath,使用很方便。   
+pugixml官网： [pugixml.org](http://pugixml.org/ "扑街XML")
 
-#### Qt编码
->1.最有效的方法还是是QString::fromLocal8Bit()方法和用Qt语言家进行国际化。   
->2.编码设置,网上抄的。不过多数时候并没有什么卵用。 
-
-```c++
-//设置界面显示的编码
-QTextCodec *codec=QTextCodec::codecForName("GBK");
-QTextCodec::setCodecForLocale(codec);
-//设置翻译成其他语言的格式
-QTextCodec::setCodecForTr(QTextCodec::codecForLocale());
-//QTextCodec::setCodecForTr(codec);
-//设置读取源文件采取的编码方式
-QTextCodec *codec1=QTextCodec::codecForName("UTF-8");
-QTextCodec::setCodecForCStrings(codec1);
-```
-
-<!--more-->
----
 #### 读取XML文件
 ```c++
 using namespace pugi;
@@ -41,7 +23,7 @@ xml_document doc;
 //由于SCD文件采用的utf8格式的编码，所以装载的时候，需要设置一下编码方式
 if (!doc.load_file(filePath,pugi::parse_default,pugi::encoding_utf8))
 {
-return -1;
+  return -1;
 }
 //获取根节点
 xml_node root=doc.root();
@@ -57,8 +39,11 @@ QString name=it_xpath.node().attribute("name").value();
 xml_node node;
 QString text=node.text().as_string();####保存XML文件
 ```
----
-#### 保存XML文件:
+
+<!--more-->
+
+
+#### 保存XML文件
 ```c++
 xml_document doc;
 //增加说明
@@ -75,5 +60,5 @@ xml_node child_node=root.append_child("child");
 xml_node childText_node=root.append_child("textNode");
 childText.append_child(pugi::node_pcdata).set_value("text");
 //保存文件，这里特别要说明的一个问题就是参数的设置：pugi::format_no_escapes。设置成这样才能正确输出特殊符号"<,&"等
-doc_goPub.save_file("outFile.xml","\t",pugi::format_no_escapes,pugi::encoding_utf8);
+doc.save_file("outFile.xml","\t",pugi::format_no_escapes,pugi::encoding_utf8);
 ```

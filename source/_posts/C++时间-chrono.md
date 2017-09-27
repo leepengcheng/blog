@@ -21,7 +21,7 @@ cout << "Cost" << (double)(end - start) / CLOCKS_PER_SEC << "Second" << endl;
 <!-- ################################################ -->
 Chrono[kroʊnoʊ],翻译为`慢性的长期的`,是c++ 11中的时间库，提供计时，时钟等功能,该方法的计时精度为1微秒。     
 学习chrono，关键是理解里面时间段(`Durations`)、时间点(`Time points`)的概念。    
-##### 时钟节拍(ratio)：
+#### 时钟节拍(ratio)：
 >`template <intmax_t N, intmax_t D = 1> class ratio`    
 
 其中N表示分子，D表示分母，默认用秒表示的时间单位。     
@@ -32,7 +32,7 @@ ratio<1, 1>                      second
 ratio<1, 1000>               microsecond
 ```
 ---
-##### 时间段(duration)
+#### 时间段(duration)
 >`template <class Rep, class Period = ratio<1>>`    
 `class duration`   
 
