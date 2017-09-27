@@ -10,8 +10,23 @@ date: 2017-09-26 22:18:14
 >随机数由生成器(generator)和分布器(distributions)结合产生
 
 #### 生成器
->能够产生离散的等可能分布数值,需要注意的是对于1个给定的生成器，每次程序运行都会生成相同的序列。    
-例如下面的函数,目标是生成填充100个随机数,但是其实每次返回的值都相等。
+>能够产生离散的等可能分布数值.
+
+* `random_device`:真随机数生成器或叫f非确定性随机数生成器,linux中有效，windows下其实也是伪随机    
+* `default_random_engine`:伪随机生成器，windows默认为`mt19937`生成器，其他伪随机生成器见下    
+* `minstd_rand`: 乘数16807，模位2147483647，增量为0 
+* `minstd_rand0`: 乘数48271，模位2147483647，增量为0  
+* `mt19937`: 32位无符号梅森旋转生成器
+* `mt19937_64`: 64位无符号梅森旋转生成器
+* `ranlux24_base`:32位无符号借位减法生成器 
+* `ranlux48_base`: 64位无符号借位减法生成器 
+* `ranlux24`: 使用 `ranlux24_base`引擎，块大小223，旧块大小23
+* `ranlux48`: 使用 `ranlux48_base`引擎，块大小389，旧块大小11
+* `knuth_b`: 使用`minstd_rand0`和表大小256 
+<!-- more -->
+
+需要注意的是对于1个给定的生成器，每次程序运行都会生成相同的序列。  
+例如下面的函数,目标是生成填充100个随机数的`vector<int>`,但是其实每次返回的值都相等。
 ```c++
 vector<int> bad_gen_randInts()
 {
@@ -25,8 +40,10 @@ vector<int> bad_gen_randInts()
   return vecs;
 }
 ```
-解决这一问题的正确方法是把引擎和分布定义为static的，这样他们的状态才会保持。第一次调用会使用   
-u(e)生成的前100个数，第二次会获得接下来的100个数，依次类推。 还可以用`rand_device`生成随机   
+
+
+解决这一问题的正确方法是把引擎和分布定义为`static`的，这样他们的状态才会保持。第一次调用会使用   
+`u(e)`生成的前100个数，第二次会获得接下来的100个数，依次类推。 还可以用`rand_device`生成随机   
 种子填充引擎，例如`default_random_engine(rand_device()())`。
 ```c++  
 vector<int> good_gen_randInts()
@@ -40,18 +57,9 @@ vector<int> good_gen_randInts()
   }
   return vecs;
 }
+```
 
-* `random_device`:真随机数生成器或叫f非确定性随机数生成器,linux中有效，windows下其实也是伪随机    
-* `default_random_engine`:伪随机生成器，windows默认为`mt19937`生成器，其他伪随机生成器见下    
-* `minstd_rand`: Minimal Standard minstd_rand generator 
-* `minstd_rand0`: Minimal Standard minstd_rand0 generator 
-* `mt19937`: Mersenne Twister 19937 generator 
-* `mt19937_64`: Mersene Twister 19937 generator (64 bit)
-* `ranlux24_base`:Ranlux 24 base generator 
-* `ranlux48_base`: Ranlux 48 base generator 
-* `ranlux24`: Ranlux 24 generator 
-* `ranlux48`: Ranlux 48 generator 
-* `knuth_b`: Knuth-B generator 
+
 
 ####  分布器
 >能够把生成器产生的均匀分布值映射到其他常见分布，下面仅列出部分分布器类型
@@ -63,7 +71,6 @@ vector<int> good_gen_randInts()
 * 努伯利分布： `bernoulli_distribution `
 * 其他分布: `gamma_distribution`
 
-<!-- more -->
 
 #### 使用方法
 ```c++
@@ -182,8 +189,7 @@ vector<int, 10> a(nums,nums+n);
 default_random_engine defaultEngine;    
 shuffle(a.begin(), a.end(), defaultEngine);
 //随机种子生成器
-random_device rd;
-shuffle(a.begin(), a.end(), defaultEngine(rd()));
+shuffle(a.begin(), a.end(), defaultEngine(rand_device()());
 
 //对数组随机排序
 shuffle(nums, nums+n, defaultEngine);
