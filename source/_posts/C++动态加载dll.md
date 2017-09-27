@@ -6,26 +6,7 @@ tags:
 date: 2017-02-07 09:30:22
 ---
 
-#### 加载资源文件
-```c++
-//c++ win32
-#include <windows.h>
-#include "resource.h"
-HRSRC hRsrc = FindResource(NULL, MAKEINTRESOURCE(IDR_RESOURCE), TEXT("Tcl"));
-HGLOBAL hGlobal = LoadResource(NULL, hRsrc);
-LPVOID pBuffer = LockResource(hGlobal);
-char* script = (char*)pBuffer;
-```
-其中:IDR_RESOURCE是resource.h头文件中定义的资源文件ID,  
-TEXT(“Tcl”)是自定义的资源类型,其他常用的用HTML ICON等资源类型   
-pBuffer是返回的资源文件的void指针,如果资源文件是文本,可以直接   
-转换为char*,然后输出字符串。
-<!--more-->
-
-#### 函数指针
-`typedef int(*Fun)(char*) ==using Fun=int(*)(char*)`
-
-#### 加载DLL
+#### C++加载DLL
 
 ```c++
 //C++
@@ -40,6 +21,7 @@ Fun libFun = (Fun)GetProcAddress(mylib, "IsLicenseValid");
 ```
 “IsLicenseValid”是DLL中定义的需要调用的函数名称,然后就可以直接调用了。
 
+<!--more-->
 
 #### Qt加载DLL
 ```c++
@@ -58,3 +40,5 @@ if (mylib.load())
 }
 ```
 Qt中动态加载DLL的方式和原生C++基本类似,但是代码更加精简。
+
+
