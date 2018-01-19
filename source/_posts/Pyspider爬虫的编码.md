@@ -1,5 +1,5 @@
 ---
-title: pyspider爬虫框架的编码问题
+title: pyspider爬虫的编码
 categories: others
 tags:
   - pyspider

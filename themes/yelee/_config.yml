@@ -210,7 +210,7 @@ fancybox: false
 
 # Display Math(LaTeX, MathML...) | 数学公式支持
 ## https://www.mathjax.org/
-mathjax: false
+mathjax: true
 
 # Socail Share | 是否开启分享
 share: 

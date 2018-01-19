@@ -1,5 +1,5 @@
 ---
-title: pugixml简易教程
+title: C++ xml库-pugixml
 categories: programming
 tags:
   - c++

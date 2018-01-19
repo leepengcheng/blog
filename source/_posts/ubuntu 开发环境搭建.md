@@ -1,5 +1,5 @@
 ---
-title: ubuntu 环境搭建
+title: ubuntu 开发环境搭建
 categories: others
 tags:
   - ubuntu

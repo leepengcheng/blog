@@ -1,5 +1,5 @@
 ---
-title: tensorflow学习笔记(2)
+title: Tensorflow学习笔记(2)
 categories: ml 
 tags:
   - tensorflow
