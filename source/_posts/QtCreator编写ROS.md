@@ -30,14 +30,14 @@ $ catkin create pkg  mypkg   --catkin-deps  roscpp std_msgs  --system-deps Boost
 $ sudo  ln -s /opt/ros/kinetic/share/catkin/cmake/toplevel.cmake   ~/catkin_ws/src/CMakeLists.txt
 ```
 
-#### 3.配置QtCreator
+### 3.配置QtCreator
 * 打开 工具>构建和运行>选择构建套件
 * 设置 Cmake generator:CodeBlocks -- Unix Makfiles
 * 设置 CMake Configuration:只包含`QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable}`
 
 
 
-#### 4.编译工作空间
+### 4.编译工作空间
 ```bash
 # 删除默认编译器,使用QT Creator设置的编译器
 * 在工作空间执行(非必须)`catkin config --cmake-args -DCMAKE_CXX_COMPILER:STRING=/usr/bin/g++ --`
@@ -46,7 +46,7 @@ $ sudo  ln -s /opt/ros/kinetic/share/catkin/cmake/toplevel.cmake   ~/catkin_ws/s
 * 在工作空间执行 `catkin build`(编译所有的包)或者`catkin build xxx`编译指定的包
 
 ```
-#### 5.打开QtCreator
+### 5.打开QtCreator
 * 在shell中打开QtCreator,例如`./qtcreator`,不要直接点击桌面图标启动,即使加了`bash  -i -c`依然无法编译成功(浪费了我2天时间)
 * 选择**指定包**下的`CMakeLists.txt`打开,指定工作目录为"../build/pkgname",pkgname为选的包的名称
 
