@@ -225,10 +225,10 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-opencv-halcon算子对比(1-滤波)" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-halcon学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/blog/2017/opencv-halcon算子对比(1-滤波)/" class="article-date">
+      <a href="/blog/2017/halcon学习笔记/" class="article-date">
       <time datetime="2017-04-12T15:04:22.000Z" itemprop="datePublished">2017-04-12</time>
 </a>
 
@@ -242,7 +242,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/2017/opencv-halcon算子对比(1-滤波)/">opencv-halcon算子对比(1-滤波)</a>
+      <a class="article-title" href="/blog/2017/halcon学习笔记/">halcon学习笔记</a>
     </h1>
   
 
@@ -252,9 +252,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h4 id="滤波-filter"><a href="#滤波-filter" class="headerlink" title="滤波(filter)"></a>滤波(filter)</h4><blockquote>
-<p>均值滤波<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//halcon</span></div><div class="line"> mean_image(image, imageMean, <span class="number">3</span>, <span class="number">3</span>) </div><div class="line"></div><div class="line"> <span class="comment">//opencv</span></div><div class="line"> <span class="comment">// Point(-1,-1)表示锚点在中心</span></div><div class="line"> blur(image, imageMean, Size(<span class="number">3</span>,<span class="number">3</span>),Point(<span class="number">-1</span>,<span class="number">-1</span>))</div></pre></td></tr></table></figure></p>
-<p>中值滤波<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//halcon</span></div><div class="line"><span class="comment">//circle:核的形状 mirrored:边界像素点处理方式</span></div><div class="line">median_image(image, imageMedian, 'circle', 3, 'mirrored')</div><div class="line"></div><div class="line"> <span class="comment">//opencv</span></div><div class="line">medianBlur( image, imageMedian, <span class="number">3</span>)</div></pre></td></tr></table></figure></p>
+              <h4 id="1-筛选出不规则的的网格"><a href="#1-筛选出不规则的的网格" class="headerlink" title="1.筛选出不规则的的网格"></a>1.筛选出不规则的的网格</h4><blockquote>
+<p>核心算子:</p>
+<ul>
+<li>gauss_filter:</li>
+<li>crop_rectangle1:</li>
+<li>watersheds:</li>
+<li>select_shape:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">*读取图片</div><div class="line">read_image (Image, &apos;atoms&apos;)</div><div class="line">*获得图片尺寸</div><div class="line">get_image_size (Image, Width, Height)</div><div class="line">*裁剪图片(高度/2)</div><div class="line">crop_rectangle1 (Image, Image, Height / 2, 0, Height - 1, Width - 1)  </div><div class="line">*获得裁剪后图片尺寸</div><div class="line">get_image_size (Image, Width, Height)</div><div class="line">*高斯过滤-卷积核大小5x5</div><div class="line">gauss_filter (Image, ImageGauss, 5)</div><div class="line">*分水岭算法：抽取网格</div><div class="line">watersheds (ImageGauss, Basins, Watersheds)</div><div class="line">* 选择非边界的完整网格</div><div class="line">smallest_rectangle1 (Basins, Row1, Column1, Row2, Column2)</div><div class="line">select_shape (Basins, SelectedRegions1, &apos;column1&apos;, &apos;and&apos;, 2, Width - 1)</div><div class="line">select_shape (SelectedRegions1, SelectedRegions2, &apos;row1&apos;, &apos;and&apos;, 2, Height - 1)</div><div class="line">select_shape (SelectedRegions2, SelectedRegions3, &apos;column2&apos;, &apos;and&apos;, 1, Width - 3)</div><div class="line">select_shape (SelectedRegions3, Inner, &apos;row2&apos;, &apos;and&apos;, 1, Height - 3)</div><div class="line">*选择不规则的网格-&gt;根据图像的几何矩</div><div class="line">select_shape (Inner, Irregular, [&apos;moments_i1&apos;,&apos;moments_i1&apos;], &apos;or&apos;, [0,9.5e8], [1.5e8,1e10])</div></pre></td></tr></table></figure>
+</li>
+</ul>
 </blockquote>
           
       
@@ -275,8 +281,92 @@
 
       
         <p class="article-more-link">
-          <a href="/blog/2017/opencv-halcon算子对比(1-滤波)/#more">阅读全文 >></a>
+          <a href="/blog/2017/halcon学习笔记/#more">阅读全文 >></a>
         </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Movieit 模块说明" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/blog/2017/Movieit 模块说明/" class="article-date">
+      <time datetime="2017-03-20T13:18:28.000Z" itemprop="datePublished">2017-03-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017/Movieit 模块说明/">Movieit 模块说明</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="moveit-系统结构如图所示"><a href="#moveit-系统结构如图所示" class="headerlink" title="moveit 系统结构如图所示"></a>moveit 系统结构如图所示</h2><p><img src="../images/moveit.jpg" alt="moveit" title="Optional title attribute"></p>
+<hr>
+<ul>
+<li><p>The move_group node（move_group节点）<br>如上图，其中最重要的就是move_group节点，充当整合器：整合多个独立的组件,并提供ROS风格的Action和service  </p>
+</li>
+<li><p>User Interface（用户接口，三种接口可供调用）<br>  C++， 利用move_group_interface包可以方便使用move_group。<br>  Python，利用moveit_commander包<br>  GUI（界面），利用Motion Planning 的 Rviz插件。            </p>
+</li>
+<li><p>配置，move_group是ROS节点，它在ROS param server获取三种信息，<br>  URDF ，从ROS param server中查找robot_description，获取URDF，它是机器人的描述文件。<br>  SRDF ，从ROS param server中查找robot_description_semantic，获取SRDF.它一般通过MoveIt! Setup Assistant生成。<br>  MoveIt! configuration ，从ROS param server中获取更多信息，如joint limits, kinematics, motion planning,<br>  perception and other information。配置文件由MoveIt! Setup Assistant生成，存放在MoveIt! config目录中。  </p>
+</li>
+<li><p>Robot Interface（机器人接口）<br>  move_group通过ROS topics和actions与机器人通讯，获取机器人的状态（位置，节点等），<br>  获取点云或其他传感器数据再传递给机器人的控制器。</p>
+</li>
+<li><p>Joint State Information（节点状态信息）<br>  move_group监听 /joint_states 主题确定状态信息。例如：确定每个节点的位置。<br>  Move_group能够监听在这主题的多个发布器信息，即使是发布部分的信息（例如：独立的发布器可能是用于机械臂或移动机器人）。<br>  ove_group不会建立自己的节点状态发布器。这就需要在每个机器人单独来建立。  </p>
+</li>
+<li><p>Transform Information（变换信息）<br>  Move_group通过ROS TF库来监视变换信息。这允许节点获取全局的姿态信息。<br>  例如：navigation包发布机器人的map frame和base frame到TF，move_group可以使用TF找出这个变换信息，在内部使用。<br>  注意：Move_group只是监听TF，你需要启动robot_state_publisher才能发布TF。</p>
+</li>
+<li><p>Controller Interface （控制器接口）<br>  通过ROS的action接口，FollowJointTrajectoryAction接口来使用控制器。<br>  一个机器人的服务器服务于这个action-这个服务器不是有move_group提供。<br>  move_group只会实例化客户端与机器人的控制器action服务器通讯。  </p>
+</li>
+<li><p>Planning Scene（规划场景）<br>  move_group使用规划场景监视器来维护规划场景。<br>  场景是世界的和机器人的状态的表现。<br>  机器人状态包含机器人刚性连接到机器人的所有物体。<br>  关于维护和更新规划场景的体系结构的详细信息在下面的规划场景部分中描述。  </p>
+</li>
+<li><p>Extensible Capabilities（可扩展能力）<br>  move_group的结构被设计成容易扩展，独立的能力如抓放，运动学，运动规划。<br>  扩展自公共类，但实际作为独立的插件运行。<br>  插件可经由一系列的ROS yaml parameters 和ROS pluginlib库配置。</p>
+</li>
+</ul>
+<hr>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/blog/categories/robot/">robot</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/moveit/">moveit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ros/">ros</a></li></ul>
+    </div>
+
       
       <div class="clearfix"></div>
     </div>
@@ -705,72 +795,6 @@
 
 
   
-    <article id="post-Pyspider爬虫的编码" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/blog/2017/Pyspider爬虫的编码/" class="article-date">
-      <time datetime="2017-02-08T04:18:23.000Z" itemprop="datePublished">2017-02-08</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2017/Pyspider爬虫的编码/">pyspider爬虫的编码</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>最近用pyspider抓取网页，pysider内置html解析库是pyquery。<br>在读取百度首页标题的时候报错。很明显<code>u&#39;\xe7\x99\xbe\</code>并不是<br>unicode，可能是pyquery转换过程中出了错误，所以打印也会报错。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment">#coding:utf-8</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> pyquery <span class="keyword">import</span> PyQuery</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>pq=PyQuery(url=<span class="string">"https://www.baidu.com/"</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>pq(<span class="string">"title).text()</span></div><div class="line"><span class="string">u'\xe7\x99\xbe\xe5\xba\xa6\xe4\xb8\x80\xe4\xb8\x8b\xef\xbc\x8c\xe4\xbd\xa0\xe5\xb0\xb1\xe7\x9f\xa5\xe9\x81\x93'</span></div><div class="line"><span class="string">&gt;&gt;&gt; print pq("</span>title).text()</div><div class="line">UnicodeEncodeError: <span class="string">'gbk'</span> codec can<span class="string">'t encode character u'</span>\xe7<span class="string">' in position 0: illegal multibyte sequence</span></div></pre></td></tr></table></figure></p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/blog/categories/others/">others</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/pyspider/">pyspider</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/blog/2017/Pyspider爬虫的编码/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-ubuntu 开发环境搭建" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -842,11 +866,11 @@
 
 
   
-    <article id="post-Qt的CSS图像精灵" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Pyspider爬虫的编码" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/blog/2017/Qt的CSS图像精灵/" class="article-date">
-      <time datetime="2017-02-07T07:27:13.000Z" itemprop="datePublished">2017-02-07</time>
+      <a href="/blog/2017/Pyspider爬虫的编码/" class="article-date">
+      <time datetime="2017-02-08T04:18:23.000Z" itemprop="datePublished">2017-02-08</time>
 </a>
 
 
@@ -859,7 +883,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/2017/Qt的CSS图像精灵/">Qt的CSS图像精灵</a>
+      <a class="article-title" href="/blog/2017/Pyspider爬虫的编码/">pyspider爬虫的编码</a>
     </h1>
   
 
@@ -869,8 +893,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>有的时候需要给控件添加图标，如果每个控件图标都添加1个资源文件<br>则很难管理,此时可以借鉴css 图像精灵的做法，把多个图标合成一张<br>大图(雪碧图),然后定位。此时一般有2种做法：   </p>
-<h4 id="利用QSS"><a href="#利用QSS" class="headerlink" title="利用QSS"></a>利用QSS</h4><p>如果图标大小是64x64,则下列函数选择第2行第3列(1+64/64,1+128/64)的图标。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Widget::setStyleSheet(<span class="string">"border-image: url(:/sprite.png)  64 0 0 128  repeat repeat;"</span>)</div></pre></td></tr></table></figure></p>
+              <p>最近用pyspider抓取网页，pysider内置html解析库是pyquery。<br>在读取百度首页标题的时候报错。很明显<code>u&#39;\xe7\x99\xbe\</code>并不是<br>unicode，可能是pyquery转换过程中出了错误，所以打印也会报错。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment">#coding:utf-8</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> pyquery <span class="keyword">import</span> PyQuery</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>pq=PyQuery(url=<span class="string">"https://www.baidu.com/"</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>pq(<span class="string">"title).text()</span></div><div class="line"><span class="string">u'\xe7\x99\xbe\xe5\xba\xa6\xe4\xb8\x80\xe4\xb8\x8b\xef\xbc\x8c\xe4\xbd\xa0\xe5\xb0\xb1\xe7\x9f\xa5\xe9\x81\x93'</span></div><div class="line"><span class="string">&gt;&gt;&gt; print pq("</span>title).text()</div><div class="line">UnicodeEncodeError: <span class="string">'gbk'</span> codec can<span class="string">'t encode character u'</span>\xe7<span class="string">' in position 0: illegal multibyte sequence</span></div></pre></td></tr></table></figure></p>
           
       
     </div>
@@ -879,18 +902,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/blog/categories/programming/">programming</a>
+    <a class="article-category-link" href="/blog/categories/others/">others</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Qt/">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/c/">c++</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/pyspider/">pyspider</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a href="/blog/2017/Qt的CSS图像精灵/#more">阅读全文 >></a>
+          <a href="/blog/2017/Pyspider爬虫的编码/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -911,7 +934,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/blog/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/blog/">&laquo; Prev</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/3/">Next &raquo;</a>
     </nav>
   
 </div>
