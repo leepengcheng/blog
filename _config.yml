@@ -69,5 +69,5 @@ theme: yelee
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/leepengcheng/blog
+  repo: git@github.com:leepengcheng/blog.git
   branch: gh-pages
