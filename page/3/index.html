@@ -623,70 +623,6 @@
 
 
   
-    <article id="post-Pytorch笔记-torchvision(3)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/blog/2017/Pytorch笔记-torchvision(3)/" class="article-date">
-      <time datetime="2017-01-02T07:59:19.000Z" itemprop="datePublished">2017-01-02</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2017/Pytorch笔记-torchvision(3)/">Pytorch笔记-torchvision(3)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <ul>
-<li>DataLoader<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">DataLoader(dataset, batch_size=<span class="number">1</span>, shuffle=<span class="keyword">False</span>, sampler=<span class="keyword">None</span>, batch_sampler=<span class="keyword">None</span>,</div><div class="line">                num_workers=<span class="number">0</span>, collate_fn=default_collate, pin_memory=<span class="keyword">False</span>, drop_last=<span class="keyword">False</span>):</div><div class="line">参数:</div><div class="line">    dataset (Dataset): dataset <span class="keyword">from</span> which to load the data.</div><div class="line">    batch_size (int, optional): 每批次的样本数目(default: <span class="number">1</span>).</div><div class="line">    shuffle (bool, optional): 每个epoch都会打乱样本顺序(default: <span class="keyword">False</span>).</div><div class="line">    sampler (Sampler, optional): defines the strategy to draw samples <span class="keyword">from</span></div><div class="line">        the dataset.如果指定了该参数, ``shuffle`` 必须为<span class="keyword">False</span>.</div><div class="line">    batch_sampler (Sampler, optional): like sampler, but returns a batch of</div><div class="line">        indices at a time. Mutually exclusive <span class="keyword">with</span> batch_size, shuffle,</div><div class="line">        sampler, <span class="keyword">and</span> drop_last.</div><div class="line">    num_workers (int, optional): 加载数据时使用的进程数目. <span class="number">0</span>表示只会加载到主线程(default: <span class="number">0</span>)</div><div class="line">    collate_fn (callable, optional): merges a list of samples to form a mini-batch.</div><div class="line">    pin_memory (bool, optional): If ``<span class="keyword">True</span>``, 在返回Tensor之前回将其复制到GPU的固定(页锁)内存中.</div><div class="line">          此时主机到GPU的复制速度更快,同时可以使用异步的GPU副本,只需要传参数<span class="keyword">async</span>=<span class="keyword">True</span>到cuda()</div><div class="line">    drop_last (bool, optional): set to ``<span class="keyword">True</span>`` to drop the last incomplete batch,</div><div class="line">        <span class="keyword">if</span> the dataset size <span class="keyword">is</span> <span class="keyword">not</span> divisible by the batch size. If ``<span class="keyword">False</span>`` <span class="keyword">and</span></div><div class="line">        the size of dataset <span class="keyword">is</span> <span class="keyword">not</span> divisible by the batch size, then the last batch</div><div class="line">        will be smaller. (default: <span class="keyword">False</span>)</div></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/blog/categories/ml/">ml</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/pytorch/">pytorch</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-Tensorflow学习笔记(1)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -738,6 +674,70 @@
         <p class="article-more-link">
           <a href="/blog/2017/Tensorflow学习笔记(1)/#more">阅读全文 >></a>
         </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Pytorch笔记-torchvision(3)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/blog/2017/Pytorch笔记-torchvision(3)/" class="article-date">
+      <time datetime="2017-01-02T07:59:19.000Z" itemprop="datePublished">2017-01-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017/Pytorch笔记-torchvision(3)/">Pytorch笔记-torchvision(3)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <ul>
+<li>DataLoader<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">DataLoader(dataset, batch_size=<span class="number">1</span>, shuffle=<span class="keyword">False</span>, sampler=<span class="keyword">None</span>, batch_sampler=<span class="keyword">None</span>,</div><div class="line">                num_workers=<span class="number">0</span>, collate_fn=default_collate, pin_memory=<span class="keyword">False</span>, drop_last=<span class="keyword">False</span>):</div><div class="line">参数:</div><div class="line">    dataset (Dataset): dataset <span class="keyword">from</span> which to load the data.</div><div class="line">    batch_size (int, optional): 每批次的样本数目(default: <span class="number">1</span>).</div><div class="line">    shuffle (bool, optional): 每个epoch都会打乱样本顺序(default: <span class="keyword">False</span>).</div><div class="line">    sampler (Sampler, optional): defines the strategy to draw samples <span class="keyword">from</span></div><div class="line">        the dataset.如果指定了该参数, ``shuffle`` 必须为<span class="keyword">False</span>.</div><div class="line">    batch_sampler (Sampler, optional): like sampler, but returns a batch of</div><div class="line">        indices at a time. Mutually exclusive <span class="keyword">with</span> batch_size, shuffle,</div><div class="line">        sampler, <span class="keyword">and</span> drop_last.</div><div class="line">    num_workers (int, optional): 加载数据时使用的进程数目. <span class="number">0</span>表示只会加载到主线程(default: <span class="number">0</span>)</div><div class="line">    collate_fn (callable, optional): merges a list of samples to form a mini-batch.</div><div class="line">    pin_memory (bool, optional): If ``<span class="keyword">True</span>``, 在返回Tensor之前回将其复制到GPU的固定(页锁)内存中.</div><div class="line">          此时主机到GPU的复制速度更快,同时可以使用异步的GPU副本,只需要传参数<span class="keyword">async</span>=<span class="keyword">True</span>到cuda()</div><div class="line">    drop_last (bool, optional): set to ``<span class="keyword">True</span>`` to drop the last incomplete batch,</div><div class="line">        <span class="keyword">if</span> the dataset size <span class="keyword">is</span> <span class="keyword">not</span> divisible by the batch size. If ``<span class="keyword">False</span>`` <span class="keyword">and</span></div><div class="line">        the size of dataset <span class="keyword">is</span> <span class="keyword">not</span> divisible by the batch size, then the last batch</div><div class="line">        will be smaller. (default: <span class="keyword">False</span>)</div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/blog/categories/ml/">ml</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/pytorch/">pytorch</a></li></ul>
+    </div>
+
       
       <div class="clearfix"></div>
     </div>
