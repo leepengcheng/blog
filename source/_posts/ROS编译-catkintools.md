@@ -12,7 +12,7 @@ ros有3套编译工具:`cmake`,`catkin_make`,`catkin build`
 `catkin_make_isolated`,会单独编译每个包,防止两个包有相同的节点.
 ```bash
 # catkinbuild:常用工具
-$ catkin_init_workspace  #生成指向top-level的CMakeLists(在src下执行)
+$ catkin_init_workspace  #生成指向top-level的CMakeLists(切记在src下执行)
 $ catkin_make          #编译所有的包(在工作空间执行)
 
 ######################################################################
