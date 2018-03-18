@@ -192,3 +192,97 @@ int main(int argc, char **argv)
 }
 
 ```
+#### 自定义actionlib
+SimpleActionServer的构造函数
+```c++
+SimpleActionServer (std::string name, ExecuteCallback execute_callback, bool auto_start)
+SimpleActionServer (std::string name, bool auto_start)
+SimpleActionServer (ros::NodeHandle n, std::string name, ExecuteCallback execute_callback, bool auto_start)
+SimpleActionServer (ros::NodeHandle n, std::string name, bool auto_start)
+```
+下面代码中用了第3种方法：参数为节点句柄、action名称以及ExecuteCallback回调函数
+```c++
+#include "ros/ros.h"
+#include "std_msgs/Int32.h"
+//actionlib 头文件
+#include <actionlib/server/simple_action_server.h>
+//由Demo_action.action生成的Demo_actionAction.h
+#include "mastering_ros_demo_pkg/Demo_actionAction.h"
+#include <iostream>
+#include <sstream>
+
+class Demo_actionAction
+{
+protected:
+  // #Demo_action.action
+  // # int32 count       #目标
+  // # ---
+  // # int32 final_count   #结果
+  // # ---
+  // # int32 current_number #反馈
+  // NodeHandle实例必须首先创建，否则会发生奇怪的问题
+  ros::NodeHandle nh_;
+  
+  //自动生成的Demo_actionAction,包含Demo_actionGoal/Demo_actionFeedback/Demo_actionResult
+  actionlib::SimpleActionServer<mastering_ros_demo_pkg::Demo_actionAction> as; 
+  mastering_ros_demo_pkg::Demo_actionFeedback feedback;//发送给客户端的反馈
+  mastering_ros_demo_pkg::Demo_actionResult result;//结果
+
+  //action的名字
+  std::string action_name;
+  int goal;
+  int progress;
+
+public:
+  Demo_actionAction(std::string name) :as(nh_, name, boost::bind(&Demo_actionAction::executeCB, this, _1), false),action_name(name)
+  {
+    as.registerPreemptCallback(boost::bind(&Demo_actionAction::preemptCB, this));
+    as.start();
+  }
+
+  ~Demo_actionAction(void)
+  {
+  }
+
+  //强制终端/取消任务执行
+  void preemptCB(){
+    ROS_WARN("%s got preempted!", action_name.c_str());
+    result.final_count = progress;
+    as.setPreempted(result,"I got Preempted"); 
+  }
+
+  void executeCB(const mastering_ros_demo_pkg::Demo_actionGoalConstPtr &goal)
+  {
+  //当action取消/正在请求中断，则退出
+	if(!as.isActive() || as.isPreemptRequested()) return;
+	ros::Rate rate(5);
+	ROS_INFO("%s is processing the goal %d", action_name.c_str(), goal->count);
+	for(progress = 1 ; progress <= goal->count; progress++){
+		
+    //检查ros是否在运行
+		if(!ros::ok()){
+			result.final_count = progress;
+			as.setAborted(result,"I failed !");
+			ROS_INFO("%s Shutting down",action_name.c_str());
+			break;
+		}
+    //同上
+		if(!as.isActive() || as.isPreemptRequested()){
+			return;
+		}	
+
+		if(goal->count <= progress){
+			ROS_INFO("%s Succeeded at getting to goal %d", action_name.c_str(), goal->count);
+			result.final_count = progress;
+			as.setSucceeded(result);
+		}else{
+			ROS_INFO("Setting to goal %d / %d",feedback.current_number,goal->count);
+			feedback.current_number = progress;
+			as.publishFeedback(feedback);
+		}
+		rate.sleep();
+	}	
+  }
+};
+
+```
