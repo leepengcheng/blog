@@ -181,16 +181,7 @@ file(DOWNLOAD www.baidu.com/data.txt ./data.txt 5)          #下载文件
 file(COPY )
 ```
 
-* option
->定义选项的开关(ON/OFF)
-```cmake
-option(USE_NAME "YOUR NAME" OFF)
-if(USE_NAME)
-    message("##########")
-else()
-    message("*********")
-endif()
-```
+
 * excute_process
 >执行外部命令
 ```cmake
@@ -217,3 +208,34 @@ protobuf_generate_cpp(PROTO_SRC PROTO_HEADER echo.proto) #生成protobuff的.cc�
 
 ```
 
+* option
+>定义选项的开关(ON/OFF),当更改值时,务必清除CMakeCache.txt和CMakeFiles.txt
+```cmake
+option(USE_NAME "YOUR NAME" OFF)
+if(USE_NAME)
+    message("##########")
+else()
+    message("*********")
+endif()
+```
+
+* configure_file
+>配置输入文件 到输出文件,主要作用是使得普通文件也可以使用cmake中的变量
+>默认将config.h.in中的 ${VAR} 和@VAR@ 替换为cmake中的变量
+>当使用@ONLY属性时,只替换@VAR@变量
+```cpp
+#cmakedefine  USE_FSTREAM
+#cmakedefine  PI       ${PI}
+```
+
+```cmake
+configure_file(config.h.in  config.h COPYONLY)  #等同于COPY,可以在QT Creator中显示config.h.in
+configure_file(config.h.in  config.h)
+option(USE_FSTREAM "USE_FSTREAM" ON)
+set(PI 3.14159)
+
+
+#输出:config.h
+#define  USE_FSTREAM
+#define  PI 3.14159
+```
