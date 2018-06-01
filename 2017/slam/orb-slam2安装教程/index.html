@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="烫烫屯" />
+
+
+
+<meta name="description" content="安装C++11orb-slam2使用了C++11的线程和时间控制函数。1$ sudo apt-get install gcc g++ 安装Pangolinorb-slam2使用 Pangolin 构建可视化用户界面1234567891011$ sudo apt-get install libglew-dev   #安装Glew  $ sudo apt-get install cmake">
+<meta name="keywords" content="slam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="orb-slam2安装教程">
+<meta property="og:url" content="https://github.com/leepengcheng/blog/2017/slam/orb-slam2安装教程/index.html">
+<meta property="og:site_name" content="Aimo的笔记">
+<meta property="og:description" content="安装C++11orb-slam2使用了C++11的线程和时间控制函数。1$ sudo apt-get install gcc g++ 安装Pangolinorb-slam2使用 Pangolin 构建可视化用户界面1234567891011$ sudo apt-get install libglew-dev   #安装Glew  $ sudo apt-get install cmake">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-01T02:20:27.153Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="orb-slam2安装教程">
+<meta name="twitter:description" content="安装C++11orb-slam2使用了C++11的线程和时间控制函数。1$ sudo apt-get install gcc g++ 安装Pangolinorb-slam2使用 Pangolin 构建可视化用户界面1234567891011$ sudo apt-get install libglew-dev   #安装Glew  $ sudo apt-get install cmake">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Aimo的笔记" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+
+
+
+
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/blog/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>orb-slam2安装教程 | Aimo的笔记</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: false,
+        animate: false,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/blog/" class="profilepic">
+            <img src="/blog/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/blog/">烫烫屯</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">写代码的农民</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/blog/archives/">所有文章</a></li>
+                        
+                            <li><a href="/blog/categories/robot">机器人</a></li>
+                        
+                            <li><a href="/blog/categories/ml">机器学习/视觉</a></li>
+                        
+                            <li><a href="/blog/categories/programming">编程语言</a></li>
+                        
+                            <li><a href="/blog/categories/others">其他</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" href="https://github.com/leepengcheng" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gflags/">gflags</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/halcon/">halcon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javaweb/">javaweb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lua/">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/moveit/">moveit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/others/">others</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/protobuf/">protobuf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/pyspider/">pyspider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/pytorch/">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/robot/">robot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ros/">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/slam/">slam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tensorflow/">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/voc/">voc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/仿函数/">仿函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/函数指针/">函数指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/异常处理/">异常处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/随机数/">随机数</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">烫烫屯</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/blog/" class="profilepic">
+                <img src="/blog/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/blog/" title="回到主页">烫烫屯</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">写代码的农民</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/blog/archives/">所有文章</a></li>
+                
+                    <li><a href="/blog/categories/robot">机器人</a></li>
+                
+                    <li><a href="/blog/categories/ml">机器学习/视觉</a></li>
+                
+                    <li><a href="/blog/categories/programming">编程语言</a></li>
+                
+                    <li><a href="/blog/categories/others">其他</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/leepengcheng" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-slam/orb-slam2安装教程" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/blog/2017/slam/orb-slam2安装教程/" class="article-date">
+      <time datetime="2017-01-10T07:12:39.000Z" itemprop="datePublished">2017-01-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      orb-slam2安装教程
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/blog/categories/robot/">robot</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/slam/">slam</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="安装C-11"><a href="#安装C-11" class="headerlink" title="安装C++11"></a>安装C++11</h1><p>orb-slam2使用了C++11的线程和时间控制函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install gcc g++</div></pre></td></tr></table></figure></p>
+<h1 id="安装Pangolin"><a href="#安装Pangolin" class="headerlink" title="安装Pangolin"></a>安装Pangolin</h1><p>orb-slam2使用 Pangolin 构建可视化用户界面<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install libglew-dev   <span class="comment">#安装Glew  </span></div><div class="line">$ sudo apt-get install cmake         <span class="comment">#安装CMake  </span></div><div class="line">$ sudo apt-get install libboost-dev libboost-thread-dev libboost-filesystem-dev  <span class="comment">#安装Boost</span></div><div class="line">$ sudo apt-get install libpython2.7-dev  <span class="comment">#安装Python2 </span></div><div class="line">$ git <span class="built_in">clone</span> https://github.com/stevenlovegrove/Pangolin.git   <span class="comment">#下载Pangolin</span></div><div class="line">$ <span class="built_in">cd</span> Pangolin  </div><div class="line">$ mkdir build  </div><div class="line">$ <span class="built_in">cd</span> build  </div><div class="line">$ cmake -DCPP11_NO_BOOST=1 ..  </div><div class="line">$ make  </div><div class="line">$ sudo make install</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h1 id="安装OpenCV"><a href="#安装OpenCV" class="headerlink" title="安装OpenCV"></a>安装OpenCV</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install build-essential libgtk2.0-dev libvtk5-dev libjpeg-dev </div><div class="line">libtiff4-dev libjasper-dev libopenexr-dev libtbb-dev <span class="comment">#依赖项</span></div><div class="line">$ mkdir build</div><div class="line">$ <span class="built_in">cd</span> build</div><div class="line">$ cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span> ..</div><div class="line">$ make -j10   <span class="comment">#开10线程编译</span></div><div class="line">$ sudo make install <span class="comment">#安装</span></div></pre></td></tr></table></figure>
+<h1 id="安装Eigen"><a href="#安装Eigen" class="headerlink" title="安装Eigen"></a>安装Eigen</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install libeigen3-dev</div></pre></td></tr></table></figure>
+<h1 id="安装DBoW2和g2o"><a href="#安装DBoW2和g2o" class="headerlink" title="安装DBoW2和g2o"></a>安装DBoW2和g2o</h1><p>  orb-slam2使用修改版的DBoW2库进行回环检测，使用 g2o 库进行非线性优化.<br>  这两个修改版的库被放在Thirdparty文件夹内，可手动编译或者用项目内置的build.sh进行编译(参见下面的<code>编译orb-slam2</code>)。 </p>
+<h1 id="编译orb-slam2"><a href="#编译orb-slam2" class="headerlink" title="编译orb-slam2"></a>编译orb-slam2</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git clone https://github.com/raulmur/orb-slam2.git orb-slam2  </div><div class="line">$ cd orb-slam2  </div><div class="line">$ chmod +x build.sh  </div><div class="line">$ ./build.sh</div></pre></td></tr></table></figure>
+<p>生成的liborb-slam2.so位于lib目录下，可执行程序mono_tum, mono_kitti, rgbd_tum, stereo_kitti, mono_euroc and stereo_euroc位于Examples目录下。</p>
+<h1 id="运行例子"><a href="#运行例子" class="headerlink" title="运行例子"></a>运行例子</h1><h2 id="Monocular单目实例"><a href="#Monocular单目实例" class="headerlink" title="Monocular单目实例"></a>Monocular单目实例</h2><p>1)TUM数据集<br>从<a href="http://vision.in.tum.de/data/datasets/rgbd-dataset/download" target="_blank" rel="external">TUM网站</a>下载并解压一个序列，如：rgbd_dataset_freiburg1_desk2.tgz，执行下面的命令。<br>(把TUMX.yaml 修改为TUM1.yaml &lt;对应<code>freiburg1序列</code>&gt;,TUM2.yaml &lt;对应<code>freiburg2序列</code>&gt; or TUM3.yaml &lt;对应<code>freiburg3序列</code>&gt;)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ./Examples/Monocular/mono_tum Vocabulary/ORBvoc.txt ./Examples/Monocular/TUMX.yaml PATH_TO_SEQUENCE_FOLDER   </div><div class="line"><span class="comment">#for example</span></div><div class="line">$ ./Examples/Monocular/mono_tum Vocabulary/ORBvoc.txt ./Examples/Monocular/TUM1.yaml ../tum_data/rgbd_dataset_freiburg1_desk2/</div></pre></td></tr></table></figure></p>
+<p>2)KITTI数据集<br>从<a href="http://www.cvlibs.net/datasets/kitti/eval_odometry.php" target="_blank" rel="external">CVlibs网站</a>下载数据集(灰度图)， 把KITTIX.yaml  修改为 KITTI00-02.yaml, KITTI03.yaml or KITTI04-12.yaml，这些*xx.yaml各自对应于序列 0 to 2, 3, and 4 to 12.将PATH_TO_DATASET_FOLDER设为数据序列的解压目录.将SEQUENCE_NUMBER设为00~11：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./Examples/Monocular/mono_kitti Vocabulary/ORBvoc.txt Examples/Monocular/KITTIX.yaml PATH_TO_DATASET_FOLDER/dataset/sequences/SEQUENCE_NUMBER</div></pre></td></tr></table></figure></p>
+<h2 id="Stereo多目实例"><a href="#Stereo多目实例" class="headerlink" title="Stereo多目实例"></a>Stereo多目实例</h2><p>1)KITTI数据集<br>从<a href="http://www.cvlibs.net/datasets/kitti/eval_odometry.php" target="_blank" rel="external">CVlibs网站</a>下载数据集(灰度图)，把KITTIX.yaml  修改为 KITTI00-02.yaml, KITTI03.yaml or KITTI04-12.yaml，这些*xx.yaml各自对应于序列 0 to 2, 3, and 4 to 12.将PATH_TO_DATASET_FOLDER设为数据序列的解压目录.将SEQUENCE_NUMBER设为00~11：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./Examples/Stereo/stereo_kitti Vocabulary/ORBvoc.txt Examples/Stereo/KITTIX.yaml PATH_TO_DATASET_FOLDER/dataset/sequences/SEQUENCE_NUMBER</div></pre></td></tr></table></figure></p>
+<h2 id="RGB-D实例"><a href="#RGB-D实例" class="headerlink" title="RGB-D实例"></a>RGB-D实例</h2><p>1)TUM 数据集<br>从<a href="http://vision.in.tum.de/data/datasets/rgbd-dataset/download" target="_blank" rel="external">TUM网站</a>下载并解压一个序列，如rgbd_dataset_freiburg1_desk2.tgz,运行RGB-D实例时需要RGBD(depth)图像和RGB图像<br>所以需要把每一张RGB图像与之对应的RGBD图像建立关联(在Examples/RGB-D/associations/目录下有一部分关联文件，可以直接使用),关联Python文件associate.py(根据timestamp进行关联)。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#高博的slam-book代码中有associate.py文件</span></div><div class="line">$ python associate.py PATH_TO_SEQUENCE/rgb.txt PATH_TO_SEQUENCE/depth.txt &gt; associations.txt</div></pre></td></tr></table></figure></p>
+<p>执行下面的命令,把 ASSOCIATIONS_FILE修改为对应的关联文件位置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$./Examples/RGB-D/rgbd_tum Vocabulary/ORBvoc.txt Examples/RGB-D/TUMX.yaml PATH_TO_SEQUENCE_FOLDER ASSOCIATIONS_FILE  </div><div class="line"><span class="comment"># for example  </span></div><div class="line">$./Examples/RGB-D/rgbd_tum Vocabulary/ORBvoc.txt ./Examples/RGB-D/TUM1.yaml  ../tum-data/rgbd_dataset_freiburg1_desk2/ ./Examples/RGB-D/associations/fr1_desk2.txt</div></pre></td></tr></table></figure></p>
+<h1 id="SLAM和Localization模式"><a href="#SLAM和Localization模式" class="headerlink" title="SLAM和Localization模式"></a>SLAM和Localization模式</h1><p>你可在GUI中切换至SLAM模式或Localization模式。</p>
+<ul>
+<li>SLAM 模式<br>  这是默认模式. 此模式下，系统有三个线程并行运行: Tracking, Local Mapping and Loop Closing。<br>  系统不停地定位相机，构建新的地图，并且试图闭合环形路径。</li>
+<li>Localization 模式<br>  当你有一个好的工作区域地图时，你可以使用此模式。在这种模式下，局部地图构建以及环路闭合检测将不工作。<br>  系统在你提供的地图上定位相机 (此地图不再更新), 在必要时使用重定位（relocalization）。</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/blog/2017/iot/Protobuf使用/">
+                    Protobuf使用
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/blog/2017/cnn/VOC 数据集格式/">
+                    VOC数据集格式
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装C-11"><span class="toc-number">1.</span> <span class="toc-text">安装C++11</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装Pangolin"><span class="toc-number">2.</span> <span class="toc-text">安装Pangolin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装OpenCV"><span class="toc-number">3.</span> <span class="toc-text">安装OpenCV</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装Eigen"><span class="toc-number">4.</span> <span class="toc-text">安装Eigen</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装DBoW2和g2o"><span class="toc-number">5.</span> <span class="toc-text">安装DBoW2和g2o</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编译orb-slam2"><span class="toc-number">6.</span> <span class="toc-text">编译orb-slam2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行例子"><span class="toc-number">7.</span> <span class="toc-text">运行例子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Monocular单目实例"><span class="toc-number">7.1.</span> <span class="toc-text">Monocular单目实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stereo多目实例"><span class="toc-number">7.2.</span> <span class="toc-text">Stereo多目实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RGB-D实例"><span class="toc-number">7.3.</span> <span class="toc-text">RGB-D实例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SLAM和Localization模式"><span class="toc-number">8.</span> <span class="toc-text">SLAM和Localization模式</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/blog/2017/iot/Protobuf使用/" title="上一篇: Protobuf使用">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/blog/2017/cnn/VOC 数据集格式/" title="下一篇: VOC数据集格式">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/blog/2018/framework/qt/QtCreator编写ROS/">QtCreator编写ROS</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2018/cmake/Cmake常用命令及VScode的配置/">Cmake常用命令及VScode的配置</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2018/ros/moveit学习笔记(1)/">moveit学习笔记(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++函数与函数指针/">C++仿函数与函数指针</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++多线程(2)-thread/">C++多线程之thread</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/nginx/kong配置/">C++多线程之thread</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++异常处理(2)-noexcept/">C++异常处理之noexcept</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++多线程(3)-async/">C++多线程之异步线程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++随机数-random/">C++随机库-random</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/git/利用GitPages制作个人博客/">利用GitPages制作个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/opencv-halcon算子对比(1-滤波)/">opencv-halcon算子对比(1-滤波)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/halcon学习笔记/">halcon学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS节点-初始化和多线程/">ROS节点-节点初始化</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS插件-plugin和nodelet/">ROS插件-plugin和nodelet</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/Movieit 模块说明/">Movieit 模块说明</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS包-dynamic_reconfigure/">ROS包-dynamic_reconfigure</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS启动-rosrun和roslaunch/">ROS启动-rosrun和roslaunch</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS编译-catkintools/">ROS编译-catkintools</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS包-service和actionlib /">ROS包-service和actionlib</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/others/SpringBoot笔记/">SpringBoot笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/halcon模板匹配入门/">halcon模板匹配入门</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++时间-chrono/">C++时间库chrono</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(3)/">Tensorflow学习笔记(3)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/system/Win7下Docker文件共享/">Win7下Docker文件共享</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/system/ubuntu 开发环境搭建/">ubuntu 开发环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/others/Pyspider爬虫的编码/">pyspider爬虫的编码</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/qt/Qt的CSS图像精灵/">Qt的CSS图像精灵</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++动态加载dll/">C++动态加载Dll</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(2)/">Tensorflow学习笔记(2)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/lua/lua测试/">Lua 测试</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++XML库-pugixml/">C++ xml库-pugixml</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/go/go测试/">go 测试</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++命令行-gflags/">C++命令行-gflags</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/git/Git 的Push和Pull/">Git 的Push和Pull</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/iot/Protobuf使用/">Protobuf使用</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/slam/orb-slam2安装教程/">orb-slam2安装教程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/VOC 数据集格式/">VOC数据集格式</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-Tensor(1)/">Pytorch笔记-Tensor(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/pytorch笔记-激活函数(2)/">pytorch笔记-激活函数(2)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(1)/">Tensorflow学习笔记(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-torchvision(3)/">Pytorch笔记-torchvision(3)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-optim(4)/">Pytorch笔记-optim(4)</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 烫烫屯
+            </div>
+            <div class="footer-right">
+                <!--<a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>-->
+            </div>
+        </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/blog/js/GithubRepoWidget.js"></script>
+
+<script data-main="/blog/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/blog/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

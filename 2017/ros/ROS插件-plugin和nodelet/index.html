@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="烫烫屯" />
+
+
+
+<meta name="description" content="Ros  plugin定义基类123456789101112131415161718192021222324//#######################// calculator_base.h//#######################ifndef PLUGINLIB_CALCULATOR_CALCULTOR_BASE_H_#define PLUGINLIB_CALCULATOR_CA">
+<meta name="keywords" content="ros">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS插件-plugin和nodelet">
+<meta property="og:url" content="https://github.com/leepengcheng/blog/2017/ros/ROS插件-plugin和nodelet/index.html">
+<meta property="og:site_name" content="Aimo的笔记">
+<meta property="og:description" content="Ros  plugin定义基类123456789101112131415161718192021222324//#######################// calculator_base.h//#######################ifndef PLUGINLIB_CALCULATOR_CALCULTOR_BASE_H_#define PLUGINLIB_CALCULATOR_CA">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-01T02:18:21.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ROS插件-plugin和nodelet">
+<meta name="twitter:description" content="Ros  plugin定义基类123456789101112131415161718192021222324//#######################// calculator_base.h//#######################ifndef PLUGINLIB_CALCULATOR_CALCULTOR_BASE_H_#define PLUGINLIB_CALCULATOR_CA">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Aimo的笔记" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+
+
+
+
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/blog/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>ROS插件-plugin和nodelet | Aimo的笔记</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: false,
+        animate: false,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/blog/" class="profilepic">
+            <img src="/blog/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/blog/">烫烫屯</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">写代码的农民</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/blog/archives/">所有文章</a></li>
+                        
+                            <li><a href="/blog/categories/robot">机器人</a></li>
+                        
+                            <li><a href="/blog/categories/ml">机器学习/视觉</a></li>
+                        
+                            <li><a href="/blog/categories/programming">编程语言</a></li>
+                        
+                            <li><a href="/blog/categories/others">其他</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" href="https://github.com/leepengcheng" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gflags/">gflags</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/halcon/">halcon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javaweb/">javaweb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lua/">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/moveit/">moveit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/others/">others</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/protobuf/">protobuf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/pyspider/">pyspider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/pytorch/">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/robot/">robot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ros/">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/slam/">slam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tensorflow/">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/voc/">voc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/仿函数/">仿函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/函数指针/">函数指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/异常处理/">异常处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/随机数/">随机数</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">烫烫屯</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/blog/" class="profilepic">
+                <img src="/blog/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/blog/" title="回到主页">烫烫屯</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">写代码的农民</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/blog/archives/">所有文章</a></li>
+                
+                    <li><a href="/blog/categories/robot">机器人</a></li>
+                
+                    <li><a href="/blog/categories/ml">机器学习/视觉</a></li>
+                
+                    <li><a href="/blog/categories/programming">编程语言</a></li>
+                
+                    <li><a href="/blog/categories/others">其他</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/leepengcheng" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-ros/ROS插件-plugin和nodelet" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/blog/2017/ros/ROS插件-plugin和nodelet/" class="article-date">
+      <time datetime="2017-03-20T13:18:28.000Z" itemprop="datePublished">2017-03-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ROS插件-plugin和nodelet
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/blog/categories/robot/">robot</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ros/">ros</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="Ros-plugin"><a href="#Ros-plugin" class="headerlink" title="Ros  plugin"></a>Ros  plugin</h3><h4 id="定义基类"><a href="#定义基类" class="headerlink" title="定义基类"></a>定义基类</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//#######################</span></div><div class="line"><span class="comment">// calculator_base.h</span></div><div class="line"><span class="comment">//######################</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> PLUGINLIB_CALCULATOR_CALCULTOR_BASE_H_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> PLUGINLIB_CALCULATOR_CALCULTOR_BASE_H_</span></div><div class="line"></div><div class="line"><span class="keyword">namespace</span> calculator_base </div><div class="line">&#123;</div><div class="line">  <span class="class"><span class="keyword">class</span> <span class="title">calc_functions</span></span></div><div class="line"><span class="class">  &#123;</span></div><div class="line">    <span class="keyword">public</span>:</div><div class="line">    </div><div class="line">      <span class="comment">//=0为纯虚函数,特点:1-没有函数体,2-告诉编译器为虚函数 3-声明语句,后面有分号</span></div><div class="line">      <span class="comment">//相当于c#/java中的abstract抽象函数</span></div><div class="line">      <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">get_numbers</span><span class="params">(<span class="keyword">double</span> number1, <span class="keyword">double</span> number2)</span> </span>= <span class="number">0</span>;</div><div class="line">      <span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">operation</span><span class="params">()</span> </span>= <span class="number">0</span>;</div><div class="line">      <span class="keyword">virtual</span> ~calc_functions()&#123;&#125;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">      calc_functions()&#123;&#125;</div><div class="line">  &#125;;</div><div class="line">&#125;;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+<h4 id="继承基类并实现接口"><a href="#继承基类并实现接口" class="headerlink" title="继承基类并实现接口"></a>继承基类并实现接口</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//#######################</span></div><div class="line"><span class="comment">// calculator_plugins.h</span></div><div class="line"><span class="comment">//######################</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> PLUGINLIB_CALCULATOR_CALCULTOR_PLUGINS_H_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> PLUGINLIB_CALCULATOR_CALCULTOR_PLUGINS_H_</span></div><div class="line"><span class="comment">// 引用基类头文件</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pluginlib_calculator/calculator_base.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">namespace</span> calculator_plugins </div><div class="line">&#123;</div><div class="line">  <span class="comment">//继承自基类</span></div><div class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Add</span> :</span> <span class="keyword">public</span> calculator_base::calc_functions</div><div class="line">  &#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">      Add()</div><div class="line">      &#123;</div><div class="line">        number1_ = <span class="number">0</span>;</div><div class="line">        number2_ = <span class="number">0</span>;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="comment">//实现基类虚函数get_numbers</span></div><div class="line">      <span class="function"><span class="keyword">void</span> <span class="title">get_numbers</span><span class="params">(<span class="keyword">double</span> number1, <span class="keyword">double</span> number2)</span></span></div><div class="line"><span class="function">      </span>&#123;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">          number1_ = number1;</div><div class="line">          number2_ = number2;</div><div class="line">          &#125;</div><div class="line"></div><div class="line">        <span class="keyword">catch</span>(<span class="keyword">int</span> e)</div><div class="line">        &#123;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cerr</span>&lt;&lt;<span class="string">"Exception while inputting numbers"</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">      &#125;	</div><div class="line"></div><div class="line">      <span class="comment">//实现基类operation()</span></div><div class="line">      <span class="function"><span class="keyword">double</span> <span class="title">operation</span><span class="params">()</span></span></div><div class="line"><span class="function">      </span>&#123;</div><div class="line">        <span class="keyword">return</span>(number1_+number2_);</div><div class="line">      &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span>:</div><div class="line">      <span class="keyword">double</span> number1_;</div><div class="line">      <span class="keyword">double</span> number2_;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="comment">//减法实现</span></div><div class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Sub</span> :</span> <span class="keyword">public</span> calculator_base::calc_functions</div><div class="line">  <span class="comment">// ...</span></div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  <span class="comment">//乘法实现</span></div><div class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Mul</span> :</span> <span class="keyword">public</span> calculator_base::calc_functions</div><div class="line">  &#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">  &#125;;</div><div class="line">&#125;;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+<h4 id="导出插件"><a href="#导出插件" class="headerlink" title="导出插件"></a>导出插件</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//#######################</span></div><div class="line"><span class="comment">// calculator_plugins.cpp</span></div><div class="line"><span class="comment">//######################</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pluginlib/class_list_macros.h&gt;  //插件宏定义</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pluginlib_calculator/calculator_base.h&gt;  //基类定义</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pluginlib_calculator/calculator_plugins.h&gt; //继承类定义与实现</span></span></div><div class="line"></div><div class="line"><span class="comment">//PLUGINLIB_EXPORT_CLASS(class_type, base_class_type)</span></div><div class="line">PLUGINLIB_EXPORT_CLASS(calculator_plugins::Add, calculator_base::calc_functions);</div><div class="line">PLUGINLIB_EXPORT_CLASS(calculator_plugins::Sub, calculator_base::calc_functions);</div><div class="line">PLUGINLIB_EXPORT_CLASS(calculator_plugins::Mul, calculator_base::calc_functions);</div><div class="line">PLUGINLIB_EXPORT_CLASS(calculator_plugins::Div, calculator_base::calc_functions);</div></pre></td></tr></table></figure>
+<h4 id="编译插件"><a href="#编译插件" class="headerlink" title="编译插件"></a>编译插件</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//#######################</span></div><div class="line"><span class="comment">// CMakeLists.txt</span></div><div class="line"><span class="comment">//######################</span></div><div class="line"><span class="comment">//</span></div><div class="line">add_library(pluginlib_calculator src/calculator_plugins.cpp)</div><div class="line">target_link_libraries(pluginlib_calculator $&#123;catkin_LIBRARIES&#125;)</div></pre></td></tr></table></figure>
+<h4 id="编写插件描述plugin-xml"><a href="#编写插件描述plugin-xml" class="headerlink" title="编写插件描述plugin.xml"></a>编写插件描述plugin.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- //#######################</span></div><div class="line"><span class="comment">// calculator_plugins.xml</span></div><div class="line"><span class="comment">//###################### --&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- &lt;class_libraries&gt;该标签可包含多个库 --&gt;</span></div><div class="line"><span class="comment">&lt;!-- 库位置:devel/lib/libpluginlib_calculator.so --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">library</span> <span class="attr">path</span>=<span class="string">"lib/libpluginlib_calculator"</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="comment">&lt;!-- name:插件工程名/类名  type:继承类的命令空间/继承类名  base_class_type:基类的命令空间/基类名 --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"pluginlib_calculator/Add"</span> <span class="attr">type</span>=<span class="string">"calculator_plugins::Add"</span> <span class="attr">base_class_type</span>=<span class="string">"calculator_base::calc_functions"</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 描述说明 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>This is a add plugin.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">class</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"pluginlib_calculator/Sub"</span> <span class="attr">type</span>=<span class="string">"calculator_plugins::Sub"</span> <span class="attr">base_class_type</span>=<span class="string">"calculator_base::calc_functions"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>This is a sub plugin.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">class</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"pluginlib_calculator/Mul"</span> <span class="attr">type</span>=<span class="string">"calculator_plugins::Mul"</span> <span class="attr">base_class_type</span>=<span class="string">"calculator_base::calc_functions"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>This is a mul plugin.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">class</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"pluginlib_calculator/Div"</span> <span class="attr">type</span>=<span class="string">"calculator_plugins::Div"</span> <span class="attr">base_class_type</span>=<span class="string">"calculator_base::calc_functions"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>This is a div plugin.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">class</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">library</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- &lt;/class_libraries&gt; --&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="在package-xml中注册插件"><a href="#在package-xml中注册插件" class="headerlink" title="在package.xml中注册插件"></a>在package.xml中注册插件</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- package.xml --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">export</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- pluginlib_calculator:!!!!定义基类的package名称!!!  plugin:插件描述文件calculator_plugins.xml --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">pluginlib_calculator</span> <span class="attr">plugin</span>=<span class="string">"$&#123;prefix&#125;/calculator_plugins.xml"</span> /&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 如果插件类和基类不在同一package,需要添加对插件基类所在package的依赖 --&gt;</span></div><div class="line">    <span class="comment">&lt;!-- &lt;build_depend&gt;calculator_base&lt;/build_depend&gt; --&gt;</span></div><div class="line">    <span class="comment">&lt;!-- &lt;run_depend&gt;calculator_base&lt;/run_depend&gt; --&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">export</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="列出插件"><a href="#列出插件" class="headerlink" title="列出插件"></a>列出插件</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rospack  plugins --attrib=plugin pluginlib_calculator</div><div class="line"><span class="comment">#&gt;&gt; pluginlib_calculator ~/catkin_ws/src/pluginlib_calculator/calculator_plugins.xml</span></div></pre></td></tr></table></figure>
+<h4 id="调用插件"><a href="#调用插件" class="headerlink" title="调用插件"></a>调用插件</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;boost/shared_ptr.hpp&gt;</span></span></div><div class="line"><span class="comment">//pluginlib加载对应库的函数</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pluginlib/class_loader.h&gt;</span></span></div><div class="line"><span class="comment">//加载对应的基础类的头文件</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pluginlib_calculator/calculator_base.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">  <span class="comment">//ClassLoader(std::string package, std::string base_class,</span></div><div class="line">  <span class="comment">//std::string attrib_name = std::string("plugin"),</span></div><div class="line">  <span class="comment">//std::vector&lt;std::string&gt; plugin_xml_paths = std::vector&lt;std::string&gt;());</span></div><div class="line">  pluginlib::ClassLoader&lt;calculator_base::calc_functions&gt; calc_loader(<span class="string">"pluginlib_calculator"</span>, <span class="string">"calculator_base::calc_functions"</span>);</div><div class="line">  <span class="keyword">try</span></div><div class="line">  &#123;</div><div class="line">    boost::<span class="built_in">shared_ptr</span>&lt;calculator_base::calc_functions&gt; add = calc_loader.createInstance(<span class="string">"pluginlib_calculator/Add"</span>);</div><div class="line">    add-&gt;get_numbers(<span class="number">10.0</span>,<span class="number">10.0</span>);</div><div class="line">    <span class="keyword">double</span> result = add-&gt;operation();</div><div class="line"></div><div class="line">    ROS_INFO(<span class="string">"Triangle area: %.2f"</span>, result);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">catch</span>(pluginlib::PluginlibException&amp; ex)</div><div class="line">  &#123;</div><div class="line">    ROS_ERROR(<span class="string">"The plugin failed to load for some reason. Error: %s"</span>, ex.what());</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="Nodelet"><a href="#Nodelet" class="headerlink" title="Nodelet"></a>Nodelet</h3><h4 id="定义类继承Nodelet"><a href="#定义类继承Nodelet" class="headerlink" title="定义类继承Nodelet"></a>定义类继承Nodelet</h4><p>步骤如下</p>
+<ul>
+<li>添加对应的include头文件</li>
+<li>去除main()函数</li>
+<li>继承nodelet::Nodelet </li>
+<li>在onInit()中初始化topic,不能做耗时任务,如果需要循环pub,需要用多线程</li>
+<li>添加PLUGINLIB_DECLARE_CLASS宏定义  <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//宏定义头文件</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pluginlib/class_list_macros.h&gt;  </span></span></div><div class="line"><span class="comment">//nodelet 头文件</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;nodelet/nodelet.h&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ros/ros.h&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;std_msgs/Float64.h&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt; //fabs  </span></span></div><div class="line"><span class="keyword">namespace</span> nodelet_ns  </div><div class="line">&#123;  </div><div class="line">  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Plus</span> :</span> <span class="keyword">public</span> nodelet::Nodelet  </div><div class="line">&#123;  </div><div class="line"><span class="keyword">public</span>:  </div><div class="line">  Plus(): value_(<span class="number">0</span>)&#123;&#125;</div><div class="line"><span class="keyword">private</span>:  </div><div class="line">  <span class="comment">//实现虚函数onInit()</span></div><div class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">onInit</span><span class="params">()</span>  </span></div><div class="line"><span class="function">  </span>&#123;  </div><div class="line">    <span class="comment">//获取当前的node</span></div><div class="line">    ros::NodeHandle&amp; private_nh = getPrivateNodeHandle();  </div><div class="line">    <span class="comment">//获取参数:value</span></div><div class="line">    private_nh.getParam(<span class="string">"value"</span>, value_);  </div><div class="line">    <span class="comment">//定义pub</span></div><div class="line">    pub = private_nh.advertise&lt;std_msgs::Float64&gt;(<span class="string">"out"</span>, <span class="number">10</span>); </div><div class="line">    <span class="comment">//定义sub </span></div><div class="line">    sub = private_nh.subscribe(<span class="string">"in"</span>, <span class="number">10</span>, &amp;Plus::callback, <span class="keyword">this</span>);  </div><div class="line">  &#125;  </div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">callback</span><span class="params">(<span class="keyword">const</span> std_msgs::Float64::ConstPtr&amp; input)</span>  </span></div><div class="line"><span class="function">  </span>&#123;  </div><div class="line">    <span class="comment">//!!!!shared_ptr定义指针</span></div><div class="line">    std_msgs::Float64Ptr output(new std_msgs::Float64());  </div><div class="line">    output-&gt;data = input-&gt;data + value_;  </div><div class="line">    NODELET_DEBUG(<span class="string">"Adding %f to get %f"</span>, value_, output-&gt;data);</div><div class="line">    <span class="comment">//发送指针</span></div><div class="line">    pub.publish(output);  </div><div class="line">  &#125;  </div><div class="line">  </div><div class="line">  ros::Publisher pub;  </div><div class="line">  ros::Subscriber sub;  </div><div class="line">  <span class="keyword">double</span> value_;  </div><div class="line">&#125;;  </div><div class="line"></div><div class="line"><span class="comment">//PLUGINLIB_DECLARE_CLASS(pkg, class_name, class_type, base_class_type)</span></div><div class="line">PLUGINLIB_DECLARE_CLASS(nodelet_ns, Plus, nodelet_ns::Plus, nodelet::Nodelet); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="编写插件描述nodelet-xml"><a href="#编写插件描述nodelet-xml" class="headerlink" title="编写插件描述nodelet.xml"></a>编写插件描述nodelet.xml</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 库位置:devel/lib/libnodelet_math.so --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">library</span> <span class="attr">path</span>=<span class="string">"lib/libnodelet_math"</span>&gt;</span></div><div class="line">  <span class="comment">&lt;!-- name:插件工程名/类名  type:继承类的命令空间/继承类名  base_class_type:基类的命令空间/基类名 --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">class</span> <span class="attr">name</span>=<span class="string">"nodelet_tutorial_math/Plus"</span> <span class="attr">type</span>=<span class="string">"nodelet_tutorial_math::Plus"</span> <span class="attr">base_class_type</span>=<span class="string">"nodelet::Nodelet"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span> </div><div class="line">      A node to add a value and republish.</div><div class="line">    <span class="tag">&lt;/<span class="name">description</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">class</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">library</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="在package-xml中注册插件-1"><a href="#在package-xml中注册插件-1" class="headerlink" title="在package.xml中注册插件"></a>在package.xml中注册插件</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>nodelet<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">run_depend</span>&gt;</span>nodelet<span class="tag">&lt;/<span class="name">run_depend</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">export</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">nodelet</span> <span class="attr">plugin</span>=<span class="string">"$&#123;prefix&#125;/nodelet.xml"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">export</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="使用nodelet"><a href="#使用nodelet" class="headerlink" title="使用nodelet"></a>使用nodelet</h4><p>launch.xml如下所示：</p>
+<ul>
+<li>Plus的输出<code>/Plus/out</code> 直接指向Plus的输入<code>Plus2/in</code></li>
+<li>Plus3的输出<code>/Plus3/in</code> 直接指向Plus3的输入<code>Plus2/out</code><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">launch</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">"nodelet"</span> <span class="attr">type</span>=<span class="string">"nodelet"</span> <span class="attr">name</span>=<span class="string">"standalone_nodelet"</span>  <span class="attr">args</span>=<span class="string">"manager"</span> <span class="attr">output</span>=<span class="string">"screen"</span>/&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">"nodelet"</span> <span class="attr">type</span>=<span class="string">"nodelet"</span> <span class="attr">name</span>=<span class="string">"Plus"</span> <span class="attr">args</span>=<span class="string">"load nodelet_tutorial_math/Plus standalone_nodelet"</span> <span class="attr">output</span>=<span class="string">"screen"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">"/Plus/out"</span> <span class="attr">to</span>=<span class="string">"Plus2/in"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">node</span>&gt;</span>          </div><div class="line"></div><div class="line">    <span class="comment">&lt;!-- 参数:value: 10 --&gt;</span></div><div class="line">    <span class="comment">&lt;!-- &lt;rosparam param="Plus2" file="$(find nodelet_tutorial_math)/plus_default.yaml"/&gt; --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">"nodelet"</span> <span class="attr">type</span>=<span class="string">"nodelet"</span> <span class="attr">name</span>=<span class="string">"Plus2"</span> <span class="attr">args</span>=<span class="string">"load nodelet_tutorial_math/Plus standalone_nodelet"</span> <span class="attr">output</span>=<span class="string">"screen"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">rosparam</span> <span class="attr">file</span>=<span class="string">"$(find nodelet_tutorial_math)/plus_default.yaml"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">node</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">node</span> <span class="attr">pkg</span>=<span class="string">"nodelet"</span> <span class="attr">type</span>=<span class="string">"nodelet"</span> <span class="attr">name</span>=<span class="string">"Plus3"</span> <span class="attr">args</span>=<span class="string">"standalone nodelet_tutorial_math/Plus"</span> <span class="attr">output</span>=<span class="string">"screen"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"value"</span> <span class="attr">type</span>=<span class="string">"double"</span> <span class="attr">value</span>=<span class="string">"2.5"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">"Plus3/in"</span> <span class="attr">to</span>=<span class="string">"Plus2/out"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">node</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">launch</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 输入输出图如下所示 --&gt;</span></div><div class="line"><span class="comment">&lt;!-- 10       ---( +0 )---    10   ---( +10 )---    20    --(+2.5 )-- 22.5     --&gt;</span></div><div class="line"><span class="comment">&lt;!-- /Plus/in ---(Plus)---/Plus2/in---(Plus2)---/Plus2/out--(Plus3)--Plus3/out --&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="nodelet的运行参数"><a href="#nodelet的运行参数" class="headerlink" title="nodelet的运行参数"></a>nodelet的运行参数</h4><p>注意 standalone 和 manager的区别，standalone个人理解用于测试单个节点<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">nodelet manager               - Launch a nodelet manager node.  启动一个manager</div><div class="line">nodelet load pkg/Type manager - Launch a nodelet of <span class="built_in">type</span> pkg/Type on manager manager. 向manager中加载nodelet</div><div class="line">nodelet standalone pkg/Type   - Launch a nodelet of <span class="built_in">type</span> pkg/Type <span class="keyword">in</span> a standalone node. 无需创建manager</div><div class="line">nodelet unload name manager   - Unload a nodelet by name from manager. 从manager中移除nodelet</div><div class="line">num_worker_threads            - 线程池线程个数</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/blog/2017/ros/ROS节点-初始化和多线程/">
+                    ROS节点-节点初始化
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/blog/2017/ros/Movieit 模块说明/">
+                    Movieit 模块说明
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ros-plugin"><span class="toc-number">1.</span> <span class="toc-text">Ros  plugin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义基类"><span class="toc-number">1.1.</span> <span class="toc-text">定义基类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#继承基类并实现接口"><span class="toc-number">1.2.</span> <span class="toc-text">继承基类并实现接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#导出插件"><span class="toc-number">1.3.</span> <span class="toc-text">导出插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编译插件"><span class="toc-number">1.4.</span> <span class="toc-text">编译插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编写插件描述plugin-xml"><span class="toc-number">1.5.</span> <span class="toc-text">编写插件描述plugin.xml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在package-xml中注册插件"><span class="toc-number">1.6.</span> <span class="toc-text">在package.xml中注册插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#列出插件"><span class="toc-number">1.7.</span> <span class="toc-text">列出插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调用插件"><span class="toc-number">1.8.</span> <span class="toc-text">调用插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nodelet"><span class="toc-number">2.</span> <span class="toc-text">Nodelet</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义类继承Nodelet"><span class="toc-number">2.1.</span> <span class="toc-text">定义类继承Nodelet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编写插件描述nodelet-xml"><span class="toc-number">2.2.</span> <span class="toc-text">编写插件描述nodelet.xml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在package-xml中注册插件-1"><span class="toc-number">2.3.</span> <span class="toc-text">在package.xml中注册插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用nodelet"><span class="toc-number">2.4.</span> <span class="toc-text">使用nodelet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nodelet的运行参数"><span class="toc-number">2.5.</span> <span class="toc-text">nodelet的运行参数</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/blog/2017/ros/ROS节点-初始化和多线程/" title="上一篇: ROS节点-节点初始化">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/blog/2017/ros/Movieit 模块说明/" title="下一篇: Movieit 模块说明">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/blog/2018/framework/qt/QtCreator编写ROS/">QtCreator编写ROS</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2018/cmake/Cmake常用命令及VScode的配置/">Cmake常用命令及VScode的配置</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2018/ros/moveit学习笔记(1)/">moveit学习笔记(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++函数与函数指针/">C++仿函数与函数指针</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++多线程(2)-thread/">C++多线程之thread</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/nginx/kong配置/">C++多线程之thread</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++异常处理(2)-noexcept/">C++异常处理之noexcept</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++多线程(3)-async/">C++多线程之异步线程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++随机数-random/">C++随机库-random</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/git/利用GitPages制作个人博客/">利用GitPages制作个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/opencv-halcon算子对比(1-滤波)/">opencv-halcon算子对比(1-滤波)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/halcon学习笔记/">halcon学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS节点-初始化和多线程/">ROS节点-节点初始化</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS插件-plugin和nodelet/">ROS插件-plugin和nodelet</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/Movieit 模块说明/">Movieit 模块说明</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS包-dynamic_reconfigure/">ROS包-dynamic_reconfigure</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS启动-rosrun和roslaunch/">ROS启动-rosrun和roslaunch</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS编译-catkintools/">ROS编译-catkintools</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS包-service和actionlib /">ROS包-service和actionlib</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/others/SpringBoot笔记/">SpringBoot笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/halcon模板匹配入门/">halcon模板匹配入门</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++时间-chrono/">C++时间库chrono</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(3)/">Tensorflow学习笔记(3)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/system/Win7下Docker文件共享/">Win7下Docker文件共享</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/system/ubuntu 开发环境搭建/">ubuntu 开发环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/others/Pyspider爬虫的编码/">pyspider爬虫的编码</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/qt/Qt的CSS图像精灵/">Qt的CSS图像精灵</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++动态加载dll/">C++动态加载Dll</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(2)/">Tensorflow学习笔记(2)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/lua/lua测试/">Lua 测试</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++XML库-pugixml/">C++ xml库-pugixml</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/go/go测试/">go 测试</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++命令行-gflags/">C++命令行-gflags</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/git/Git 的Push和Pull/">Git 的Push和Pull</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/iot/Protobuf使用/">Protobuf使用</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/slam/orb-slam2安装教程/">orb-slam2安装教程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/VOC 数据集格式/">VOC数据集格式</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-Tensor(1)/">Pytorch笔记-Tensor(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/pytorch笔记-激活函数(2)/">pytorch笔记-激活函数(2)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(1)/">Tensorflow学习笔记(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-torchvision(3)/">Pytorch笔记-torchvision(3)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-optim(4)/">Pytorch笔记-optim(4)</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 烫烫屯
+            </div>
+            <div class="footer-right">
+                <!--<a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>-->
+            </div>
+        </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/blog/js/GithubRepoWidget.js"></script>
+
+<script data-main="/blog/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/blog/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

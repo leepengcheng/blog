@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="烫烫屯" />
+
+
+
+<meta name="description" content="VSCode配置C++开发配置1234567891011121314151617// launch.json基本配置&amp;#123;    &quot;version&quot;: &quot;0.2.0&quot;,    &quot;configurations&quot;: [        &amp;#123;            &quot;name&quot;: &quot;Launch CMake-built program&quot;,            &quot;type&quot;: &quot;cppdbg">
+<meta name="keywords" content="others">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cmake常用命令及VScode的配置">
+<meta property="og:url" content="https://github.com/leepengcheng/blog/2018/cmake/Cmake常用命令及VScode的配置/index.html">
+<meta property="og:site_name" content="Aimo的笔记">
+<meta property="og:description" content="VSCode配置C++开发配置1234567891011121314151617// launch.json基本配置&amp;#123;    &quot;version&quot;: &quot;0.2.0&quot;,    &quot;configurations&quot;: [        &amp;#123;            &quot;name&quot;: &quot;Launch CMake-built program&quot;,            &quot;type&quot;: &quot;cppdbg">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-01T02:16:32.901Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cmake常用命令及VScode的配置">
+<meta name="twitter:description" content="VSCode配置C++开发配置1234567891011121314151617// launch.json基本配置&amp;#123;    &quot;version&quot;: &quot;0.2.0&quot;,    &quot;configurations&quot;: [        &amp;#123;            &quot;name&quot;: &quot;Launch CMake-built program&quot;,            &quot;type&quot;: &quot;cppdbg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Aimo的笔记" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+
+
+
+
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/blog/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Cmake常用命令及VScode的配置 | Aimo的笔记</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: false,
+        animate: false,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/blog/" class="profilepic">
+            <img src="/blog/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/blog/">烫烫屯</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">写代码的农民</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/blog/archives/">所有文章</a></li>
+                        
+                            <li><a href="/blog/categories/robot">机器人</a></li>
+                        
+                            <li><a href="/blog/categories/ml">机器学习/视觉</a></li>
+                        
+                            <li><a href="/blog/categories/programming">编程语言</a></li>
+                        
+                            <li><a href="/blog/categories/others">其他</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" href="https://github.com/leepengcheng" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gflags/">gflags</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/halcon/">halcon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javaweb/">javaweb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lua/">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/moveit/">moveit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/others/">others</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/protobuf/">protobuf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/pyspider/">pyspider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/pytorch/">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/robot/">robot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ros/">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/slam/">slam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tensorflow/">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/voc/">voc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/仿函数/">仿函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/函数指针/">函数指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/异常处理/">异常处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/随机数/">随机数</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">烫烫屯</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/blog/" class="profilepic">
+                <img src="/blog/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/blog/" title="回到主页">烫烫屯</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">写代码的农民</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/blog/archives/">所有文章</a></li>
+                
+                    <li><a href="/blog/categories/robot">机器人</a></li>
+                
+                    <li><a href="/blog/categories/ml">机器学习/视觉</a></li>
+                
+                    <li><a href="/blog/categories/programming">编程语言</a></li>
+                
+                    <li><a href="/blog/categories/others">其他</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/leepengcheng" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-cmake/Cmake常用命令及VScode的配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/blog/2018/cmake/Cmake常用命令及VScode的配置/" class="article-date">
+      <time datetime="2018-01-24T06:41:03.000Z" itemprop="datePublished">2018-01-24</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Cmake常用命令及VScode的配置
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/blog/categories/others/">others</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/others/">others</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="VSCode配置"><a href="#VSCode配置" class="headerlink" title="VSCode配置"></a>VSCode配置</h2><h3 id="C-开发配置"><a href="#C-开发配置" class="headerlink" title="C++开发配置"></a>C++开发配置</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">// launch.json基本配置</div><div class="line">&#123;</div><div class="line">    <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</div><div class="line">    <span class="attr">"configurations"</span>: [</div><div class="line">        &#123;</div><div class="line">            <span class="attr">"name"</span>: <span class="string">"Launch CMake-built program"</span>,</div><div class="line">            <span class="attr">"type"</span>: <span class="string">"cppdbg"</span>,</div><div class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>,</div><div class="line">            // //需要cmake&gt;3.72</div><div class="line">            // "program": "$&#123;command:cmake.launchTargetProgramPath&#125;",</div><div class="line">            "program": "$&#123;workspaceFolder&#125;/build/$&#123;fileBasenameNoExtension&#125;",</div><div class="line">            "stopAtEntry": true,</div><div class="line">            "args":["$&#123;env:PATH&#125;"],</div><div class="line">            "cwd": "$&#123;workspaceRoot&#125;"</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="环境变量引用"><a href="#环境变量引用" class="headerlink" title="环境变量引用"></a>环境变量引用</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"type"</span>: <span class="string">"node"</span>,</div><div class="line">    <span class="attr">"request"</span>: <span class="string">"launch"</span>,</div><div class="line">    <span class="attr">"name"</span>: <span class="string">"Launch Program"</span>,</div><div class="line">    <span class="attr">"program"</span>: <span class="string">"$&#123;workspaceFolder&#125;/app.js"</span>,</div><div class="line">    <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceFolder&#125;"</span>,</div><div class="line">    <span class="attr">"args"</span>: [ <span class="string">"$&#123;env:PATH&#125;"</span> ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="VSCode配置参数引用"><a href="#VSCode配置参数引用" class="headerlink" title="VSCode配置参数引用"></a>VSCode配置参数引用</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">"$&#123;config:Name&#125;" //example: $&#123;config:editor.fontSize&#125;</div><div class="line">"$&#123;command:CommandID&#125;" //example: $&#123;command:explorer.newFolder&#125;</div></pre></td></tr></table></figure>
+<h3 id="VSCode预定义变量"><a href="#VSCode预定义变量" class="headerlink" title="VSCode预定义变量"></a>VSCode预定义变量</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">"$&#123;workspaceFolder&#125;" //the path of the folder opened in VS Code</div><div class="line">"$&#123;workspaceFolderBasename&#125;" //the name of the folder opened in VS Code without any slashes (/)</div><div class="line">"$&#123;file&#125;" //he current opened file</div><div class="line">"$&#123;relativeFile&#125;" //the current opened file relative to workspaceFolder</div><div class="line">"$&#123;fileBasename&#125;" //the current opened file's basename</div><div class="line">"$&#123;fileBasenameNoExtension&#125;" //the current opened file's basename with no file extension</div><div class="line">"$&#123;fileDirname&#125;" //the current opened file's dirname</div><div class="line">"$&#123;fileExtname&#125;" //the current opened file's extension</div><div class="line">"$&#123;cwd&#125;" //the task runner's current working directory on startup</div><div class="line">"$&#123;lineNumber&#125;" //the current selected line number in the active file</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="Cmake-笔记"><a href="#Cmake-笔记" class="headerlink" title="Cmake 笔记"></a>Cmake 笔记</h2><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><blockquote>
+<p><strong>由于CMake会从缓存中读取变量,所以更改CMakeLists.txt后需要删除CMakeCache.txt文件才能生效</strong><br><code>include(FindOpencv)</code> 和<code>find_package(Opencv)</code>效果类似,但<code>find_package</code>有<code>module</code>和<code>config</code>模式</p>
+</blockquote>
+<h3 id="常用变量"><a href="#常用变量" class="headerlink" title="常用变量"></a>常用变量</h3><ul>
+<li><p>CMAKE_SOURCE_DIR:工程顶层目录</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PROJECT_SOURCE_DIR         <span class="comment">#等价CMAKE_SOURCE_DIR</span></div><div class="line"><span class="variable">$&#123;PROJECTNAME&#125;</span>_SOURCE_DIR  <span class="comment">#等价CMAKE_SOURCE_DIR</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>CMAKE_BINARY_DIR:工程文件放置目录</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PROJECT_BINARY_DIR  <span class="comment">#等价CMAKE_BINARY_DIR</span></div><div class="line"><span class="variable">$&#123;PROJECTNAME&#125;</span>_BINARY_DIR  <span class="comment">#等价CMAKE_BINARY_DIR</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>CMAKE_BUILD_TYPE:编译类型</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">set</span>(CMAKE_BUILD_TYPE <span class="string">"debug"</span>) <span class="comment">#CMakelists.txt</span></div><div class="line">cmake -DMAKE_BUILD_TYPE=DEBUF <span class="comment">#cmake命令行</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>CMAKE_MODULE_PATH:</p>
+<blockquote>
+<p>CMAKE定义模块的搜索路径</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">list( APPEND CMAKE_MODULE_PATH <span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/cmake_modules )</div><div class="line"><span class="keyword">find_package</span>( G2O REQUIRED )</div><div class="line"><span class="keyword">find_package</span>( CSparse REQUIRED )</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>CMAKE_CURRENT_LIST_FILE:CMakelists.txt全路径</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CMAKE_CURRENT_SOURCE_DIR <span class="comment">#CMakelists.txt所在目录</span></div><div class="line">CMAKE_CURRENT_LIST_DIR   <span class="comment">#CMakelists.txt所在目录</span></div><div class="line">CMAKE_CURRENT_LIST_LINE  <span class="comment">#CMakelists.txt的当前行数</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>CMAKE_PREFIX_PATH:库/头文件的搜索目录</p>
+</li>
+<li><p>CMAKE_INCLUDE_PATH:头文件包含目录</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#linux:$&#123;CMAKE_PREFIX_PATH&#125;/(lib/&lt;arch&gt; | lib | share)/cmake/&lt;name&gt;*/   </span></div><div class="line"><span class="comment">#linux:$&#123;CMAKE_PREFIX_PATH&#125;/(lib/&lt;arch&gt; | lib | share)/&lt;name&gt;*/</span></div><div class="line"><span class="comment">#linux:$&#123;CMAKE_PREFIX_PATH&#125;/(lib/&lt;arch&gt; | lib | share)/&lt;name&gt;*/(cmake|CMake)/</span></div><div class="line"><span class="keyword">find_package</span>()  </div><div class="line"></div><div class="line"><span class="comment">#在$&#123;CMAKE_PREFIX_PATH&#125;/bin/&lt;arch&gt;或者$&#123;CMAKE_PROGRAM_PATH&#125;中搜索</span></div><div class="line"><span class="keyword">find_program</span>()  </div><div class="line"></div><div class="line"><span class="comment">#在$&#123;CMAKE_PREFIX_PATH&#125;/lib/&lt;arch&gt;或者$&#123;CMAKE_LIBRARY_PATH&#125;中搜索</span></div><div class="line"><span class="keyword">find_library</span>()  </div><div class="line"></div><div class="line"><span class="comment">#在$&#123;CMAKE_PREFIX_PATH&#125;/include/&lt;arch&gt; 或者 $&#123;CMAKE_INCLUDE_PATH&#125;</span></div><div class="line"><span class="keyword">find_file</span>()/<span class="keyword">find_path</span>()</div></pre></td></tr></table></figure>
+</li>
+<li><p>CMAKE_LIBRARY_ARCHITECTURE:系统架构</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">message</span>(<span class="variable">$&#123;CMAKE_LIBRARY_ARCHITECTURE&#125;</span>)  <span class="comment">#x86_64-linux-gnu(ubuntu 16.04 x86_64)</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">link_libraries</span>(mylib1 mylib2) <span class="comment">#所有的add_executable都会链接mylib1和mylib2库</span></div><div class="line"><span class="keyword">target_link_libraries</span>(myexe mylib1) <span class="comment">#myexe只会链接mylib1</span></div><div class="line"><span class="keyword">add_executable</span>(myexe main.cpp) <span class="comment">#可执行程序</span></div><div class="line"></div><div class="line"><span class="keyword">add_library</span>(mylib SHARED|STATIC  add.cpp)</div><div class="line"><span class="comment">#当$&#123;BUILD_SHARED_LIBS&#125;为TRUE时,下列表达式默认为SHARED</span></div><div class="line"><span class="keyword">add_library</span>(mylib  add.cpp)</div><div class="line"><span class="comment">#除非显示指定为STATIC</span></div><div class="line"><span class="keyword">add_library</span>(mylib  STATIC add.cpp)</div></pre></td></tr></table></figure>
+<ul>
+<li><p>add_compile_options</p>
+<blockquote>
+<p>编译选项</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">add_compile_options(-std=c++<span class="number">11</span>) <span class="comment">#使用c++11</span></div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>add_definitions</p>
+<blockquote>
+<p>添加变量定义,所有定义的属性都保存在工程目录(DIRECTORY)的COMPILE_DEFINITIONS属性中</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">add_definitions</span>(-DFOO -DBAR)</div><div class="line"><span class="comment">#get_directory_property(defs DIRECTORY $&#123;CMAKE_SOURCE_DIR&#125; COMPILE_DEFINITIONS)</span></div><div class="line"><span class="keyword">get_directory_property</span>(defs  COMPILE_DEFINITIONS)</div><div class="line"><span class="keyword">foreach</span>(def <span class="variable">$&#123;defs&#125;</span>)</div><div class="line">    <span class="keyword">message</span>(<span class="string">"&gt;&gt;&gt;&gt;&gt;"</span> <span class="variable">$&#123;def&#125;</span>)  </div><div class="line"><span class="keyword">endforeach</span>()</div><div class="line"><span class="comment">#输出:FOO  BAR</span></div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>get_filename_component</p>
+<blockquote>
+<p>获取文件名的路径/后缀等信息</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">get_filename_component</span>(target <span class="string">"usr/local/hello.cpp"</span> NAME_WE)</div><div class="line"><span class="keyword">message</span>(<span class="variable">$&#123;target&#125;</span>) <span class="comment">#输出hello</span></div><div class="line"><span class="comment">#NAME_WE    不包含路径和后缀</span></div><div class="line"><span class="comment">#NAME       不包含路径</span></div><div class="line"><span class="comment">#DIRECTORY  只包含路径</span></div><div class="line"><span class="comment">#EXT        只包含后缀</span></div><div class="line"><span class="comment">#ABSOLUTE   绝对路径</span></div><div class="line"><span class="comment">#REALPATH   实际路径(链接)</span></div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>file</p>
+<blockquote>
+<p>文件操作</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">file(WRITE <span class="string">"test.txt"</span> <span class="string">"helloworld"</span>)             <span class="comment">#写出</span></div><div class="line">file(READ <span class="string">"test.txt"</span> data)                      <span class="comment">#读入</span></div><div class="line">file(MD5 <span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/test.txt value)  <span class="comment">#获得文件内容MD5/SHA1/SHA224/SHA256/SHA384/SHA512</span></div><div class="line">file(RENAME <span class="string">"test.txt"</span>  <span class="string">"test1.txt"</span>)            <span class="comment">#重命名    </span></div><div class="line">file(<span class="keyword">REMOVE</span> <span class="string">"test.txt"</span>)                         <span class="comment">#删除文件  </span></div><div class="line">file(TIMESTAMP <span class="variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/test.txt  filestamp) <span class="comment">#文件创建时间戳记</span></div><div class="line">file(DOWNLOAD www.baidu.com/data.txt ./data.txt <span class="number">5</span>)          <span class="comment">#下载文件</span></div><div class="line">file(COPY )</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>excute_process</p>
+<blockquote>
+<p>执行外部命令</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># COMMAND:命令(bash -c "cmd string")</span></div><div class="line"><span class="comment"># WORKING_DIRECTORY:命令执行目录</span></div><div class="line"><span class="comment"># TIMEOUT:超时则停止,单位s</span></div><div class="line"><span class="comment"># OUTPUT_VARIABLE:输出的结果</span></div><div class="line"><span class="comment"># ERROR_VARIABLE:错误的结果</span></div><div class="line">excute_process(COMMAND bash -c <span class="string">"ls -a"</span></div><div class="line">               WORKING_DIRECTORY <span class="variable">$&#123;CMAKE_PROJECT_DIR&#125;</span></div><div class="line">               TIMEOUT  <span class="number">10</span></div><div class="line">               OUTPUT_VARIABLE urdf_dir</div><div class="line">               ERROR_VARIABLE  error)</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>include</p>
+<blockquote>
+<p>引用并执行cmake文件,默认搜索目录为${CMAKE_MODULE_PATH}</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">include</span>(FindProtobuf)    <span class="comment">#在/usr/share/cmake-3.5/Modules目录下搜索FindProtobuf.cmake</span></div><div class="line"><span class="comment">#protobuf_generate_cpp函数/宏在FindProtobuf.cmake中定义</span></div><div class="line">protobuf_generate_cpp(PROTO_SRC PROTO_HEADER echo.proto) <span class="comment">#生成protobuff的.cc和.h文件</span></div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>option</p>
+<blockquote>
+<p>定义选项的开关(ON/OFF),当更改值时,务必清除CMakeCache.txt和CMakeFiles.txt</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">option</span>(USE_NAME <span class="string">"YOUR NAME"</span> <span class="keyword">OFF</span>)</div><div class="line"><span class="keyword">if</span>(USE_NAME)</div><div class="line">    <span class="keyword">message</span>(<span class="string">"##########"</span>)</div><div class="line"><span class="keyword">else</span>()</div><div class="line">    <span class="keyword">message</span>(<span class="string">"*********"</span>)</div><div class="line"><span class="keyword">endif</span>()</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>configure_file</p>
+<blockquote>
+<p>配置输入文件 到输出文件,主要作用是使得普通文件也可以使用cmake中的变量<br>默认将config.h.in中的 ${VAR} 和@VAR@ 替换为cmake中的变量<br>当使用@ONLY属性时,只替换@VAR@变量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#cmakedefine  USE_FSTREAM</span></div><div class="line"><span class="meta">#cmakedefine  PI       $&#123;PI&#125;</span></div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">configure_file</span>(config.h.in  config.h COPYONLY)  <span class="comment">#等同于COPY,可以在QT Creator中显示config.h.in</span></div><div class="line"><span class="keyword">configure_file</span>(config.h.in  config.h)</div><div class="line"><span class="keyword">option</span>(USE_FSTREAM <span class="string">"USE_FSTREAM"</span> <span class="keyword">ON</span>)</div><div class="line"><span class="keyword">set</span>(PI <span class="number">3.14159</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#输出:config.h</span></div><div class="line"><span class="comment">#define  USE_FSTREAM</span></div><div class="line"><span class="comment">#define  PI 3.14159</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/blog/2018/framework/qt/QtCreator编写ROS/">
+                    QtCreator编写ROS
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/blog/2018/ros/moveit学习笔记(1)/">
+                    moveit学习笔记(1)
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#VSCode配置"><span class="toc-number">1.</span> <span class="toc-text">VSCode配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C-开发配置"><span class="toc-number">1.1.</span> <span class="toc-text">C++开发配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环境变量引用"><span class="toc-number">1.2.</span> <span class="toc-text">环境变量引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VSCode配置参数引用"><span class="toc-number">1.3.</span> <span class="toc-text">VSCode配置参数引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VSCode预定义变量"><span class="toc-number">1.4.</span> <span class="toc-text">VSCode预定义变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cmake-笔记"><span class="toc-number">2.</span> <span class="toc-text">Cmake 笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-number">2.1.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用变量"><span class="toc-number">2.2.</span> <span class="toc-text">常用变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用命令"><span class="toc-number">2.3.</span> <span class="toc-text">常用命令</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/blog/2018/framework/qt/QtCreator编写ROS/" title="上一篇: QtCreator编写ROS">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/blog/2018/ros/moveit学习笔记(1)/" title="下一篇: moveit学习笔记(1)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/blog/2018/framework/qt/QtCreator编写ROS/">QtCreator编写ROS</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2018/cmake/Cmake常用命令及VScode的配置/">Cmake常用命令及VScode的配置</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2018/ros/moveit学习笔记(1)/">moveit学习笔记(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++函数与函数指针/">C++仿函数与函数指针</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++多线程(2)-thread/">C++多线程之thread</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/nginx/kong配置/">C++多线程之thread</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++异常处理(2)-noexcept/">C++异常处理之noexcept</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++多线程(3)-async/">C++多线程之异步线程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++随机数-random/">C++随机库-random</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/git/利用GitPages制作个人博客/">利用GitPages制作个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/opencv-halcon算子对比(1-滤波)/">opencv-halcon算子对比(1-滤波)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/halcon学习笔记/">halcon学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS节点-初始化和多线程/">ROS节点-节点初始化</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS插件-plugin和nodelet/">ROS插件-plugin和nodelet</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/Movieit 模块说明/">Movieit 模块说明</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS包-dynamic_reconfigure/">ROS包-dynamic_reconfigure</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS启动-rosrun和roslaunch/">ROS启动-rosrun和roslaunch</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS编译-catkintools/">ROS编译-catkintools</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS包-service和actionlib /">ROS包-service和actionlib</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/others/SpringBoot笔记/">SpringBoot笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/halcon模板匹配入门/">halcon模板匹配入门</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++时间-chrono/">C++时间库chrono</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(3)/">Tensorflow学习笔记(3)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/system/Win7下Docker文件共享/">Win7下Docker文件共享</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/system/ubuntu 开发环境搭建/">ubuntu 开发环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/others/Pyspider爬虫的编码/">pyspider爬虫的编码</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/qt/Qt的CSS图像精灵/">Qt的CSS图像精灵</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++动态加载dll/">C++动态加载Dll</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(2)/">Tensorflow学习笔记(2)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/lua/lua测试/">Lua 测试</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++XML库-pugixml/">C++ xml库-pugixml</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/go/go测试/">go 测试</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++命令行-gflags/">C++命令行-gflags</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/git/Git 的Push和Pull/">Git 的Push和Pull</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/iot/Protobuf使用/">Protobuf使用</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/slam/orb-slam2安装教程/">orb-slam2安装教程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/VOC 数据集格式/">VOC数据集格式</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-Tensor(1)/">Pytorch笔记-Tensor(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/pytorch笔记-激活函数(2)/">pytorch笔记-激活函数(2)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(1)/">Tensorflow学习笔记(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-torchvision(3)/">Pytorch笔记-torchvision(3)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-optim(4)/">Pytorch笔记-optim(4)</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 烫烫屯
+            </div>
+            <div class="footer-right">
+                <!--<a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>-->
+            </div>
+        </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/blog/js/GithubRepoWidget.js"></script>
+
+<script data-main="/blog/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/blog/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

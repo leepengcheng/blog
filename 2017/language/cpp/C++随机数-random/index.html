@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="烫烫屯" />
+
+
+
+<meta name="description" content="随机数由生成器(generator)和分布器(distributions)结合产生  生成器 能够产生离散的等可能分布数值.   random_device:真随机数生成器或叫f非确定性随机数生成器,linux中有效，windows下其实也是伪随机     default_random_engine:伪随机生成器，windows默认为mt19937生成器，其他伪随机生成器见下     minst">
+<meta name="keywords" content="c++,随机数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++随机库-random">
+<meta property="og:url" content="https://github.com/leepengcheng/blog/2017/language/cpp/C++随机数-random/index.html">
+<meta property="og:site_name" content="Aimo的笔记">
+<meta property="og:description" content="随机数由生成器(generator)和分布器(distributions)结合产生  生成器 能够产生离散的等可能分布数值.   random_device:真随机数生成器或叫f非确定性随机数生成器,linux中有效，windows下其实也是伪随机     default_random_engine:伪随机生成器，windows默认为mt19937生成器，其他伪随机生成器见下     minst">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-01T02:16:18.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++随机库-random">
+<meta name="twitter:description" content="随机数由生成器(generator)和分布器(distributions)结合产生  生成器 能够产生离散的等可能分布数值.   random_device:真随机数生成器或叫f非确定性随机数生成器,linux中有效，windows下其实也是伪随机     default_random_engine:伪随机生成器，windows默认为mt19937生成器，其他伪随机生成器见下     minst">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Aimo的笔记" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+
+
+
+
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/blog/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>C++随机库-random | Aimo的笔记</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: false,
+        animate: false,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/blog/" class="profilepic">
+            <img src="/blog/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/blog/">烫烫屯</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">写代码的农民</p>
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/blog/archives/">所有文章</a></li>
+                        
+                            <li><a href="/blog/categories/robot">机器人</a></li>
+                        
+                            <li><a href="/blog/categories/ml">机器学习/视觉</a></li>
+                        
+                            <li><a href="/blog/categories/programming">编程语言</a></li>
+                        
+                            <li><a href="/blog/categories/others">其他</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" href="https://github.com/leepengcheng" title="GitHub"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Qt/">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gflags/">gflags</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/go/">go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/halcon/">halcon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javaweb/">javaweb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/lua/">lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/moveit/">moveit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/others/">others</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/protobuf/">protobuf</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/pyspider/">pyspider</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/pytorch/">pytorch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/robot/">robot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ros/">ros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/slam/">slam</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/tensorflow/">tensorflow</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ubuntu/">ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/voc/">voc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/仿函数/">仿函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/函数指针/">函数指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/多线程/">多线程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/异常处理/">异常处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/随机数/">随机数</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">烫烫屯</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/blog/" class="profilepic">
+                <img src="/blog/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/blog/" title="回到主页">烫烫屯</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">写代码的农民</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/blog/archives/">所有文章</a></li>
+                
+                    <li><a href="/blog/categories/robot">机器人</a></li>
+                
+                    <li><a href="/blog/categories/ml">机器学习/视觉</a></li>
+                
+                    <li><a href="/blog/categories/programming">编程语言</a></li>
+                
+                    <li><a href="/blog/categories/others">其他</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/leepengcheng" title="GitHub"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-language/cpp/C++随机数-random" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/blog/2017/language/cpp/C++随机数-random/" class="article-date">
+      <time datetime="2017-05-26T14:18:14.000Z" itemprop="datePublished">2017-05-26</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++随机库-random
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/blog/categories/programming/">programming</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/随机数/">随机数</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>随机数由生成器(generator)和分布器(distributions)结合产生</p>
+</blockquote>
+<h4 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h4><blockquote>
+<p>能够产生离散的等可能分布数值.</p>
+</blockquote>
+<ul>
+<li><code>random_device</code>:真随机数生成器或叫f非确定性随机数生成器,linux中有效，windows下其实也是伪随机    </li>
+<li><code>default_random_engine</code>:伪随机生成器，windows默认为<code>mt19937</code>生成器，其他伪随机生成器见下    </li>
+<li><code>minstd_rand</code>: 乘数16807，模位2147483647，增量为0 </li>
+<li><code>minstd_rand0</code>: 乘数48271，模位2147483647，增量为0  </li>
+<li><code>mt19937</code>: 32位无符号梅森旋转生成器</li>
+<li><code>mt19937_64</code>: 64位无符号梅森旋转生成器</li>
+<li><code>ranlux24_base</code>:32位无符号借位减法生成器 </li>
+<li><code>ranlux48_base</code>: 64位无符号借位减法生成器 </li>
+<li><code>ranlux24</code>: 使用 <code>ranlux24_base</code>引擎，块大小223，旧块大小23</li>
+<li><code>ranlux48</code>: 使用 <code>ranlux48_base</code>引擎，块大小389，旧块大小11</li>
+<li><code>knuth_b</code>: 使用<code>minstd_rand0</code>和表大小256 <a id="more"></a>
+</li>
+</ul>
+<p>需要注意的是对于1个给定的生成器，每次程序运行都会生成相同的序列。<br>例如下面的函数,目标是生成填充100个随机数的<code>vector&lt;int&gt;</code>,但是其实每次返回的值都相等。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; bad_gen_randInts()</div><div class="line">&#123;</div><div class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vecs;</div><div class="line">  default_random_engine e;</div><div class="line">  uniform_int_distribution&lt;&gt; u(<span class="number">0</span>,<span class="number">100</span>);</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;++i&gt;)</div><div class="line">  &#123;</div><div class="line">    vecs.push_back(u(e));</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> vecs;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>解决这一问题的正确方法是把引擎和分布定义为<code>static</code>的，这样他们的状态才会保持。第一次调用会使用<br><code>u(e)</code>生成的前100个数，第二次会获得接下来的100个数，依次类推。 还可以用<code>rand_device</code>生成随机<br>种子填充引擎，例如<code>default_random_engine(rand_device()())</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; good_gen_randInts()</div><div class="line">&#123;</div><div class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vecs;</div><div class="line">  <span class="keyword">static</span> default_random_engine e;</div><div class="line">  <span class="keyword">static</span> uniform_int_distribution&lt;&gt; u(<span class="number">0</span>,<span class="number">100</span>);</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;++i&gt;)</div><div class="line">  &#123;</div><div class="line">    vecs.push_back(u(e));</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> vecs;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="分布器"><a href="#分布器" class="headerlink" title="分布器"></a>分布器</h4><blockquote>
+<p>能够把生成器产生的均匀分布值映射到其他常见分布，下面仅列出部分分布器类型</p>
+</blockquote>
+<ul>
+<li>均匀分布:  <code>uniform_int_distribution</code>,<code>uniform_real_distribution</code></li>
+<li>正态分布: <code>normal_distribution</code></li>
+<li>二项分布: <code>binomial_distribution</code></li>
+<li>离散分布: <code>discrete_distribution</code></li>
+<li>泊松分布: <code>poisson_distribution</code></li>
+<li>努伯利分布： <code>bernoulli_distribution</code></li>
+<li>其他分布: <code>gamma_distribution</code>   </li>
+</ul>
+<h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;random&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="comment">//用random_device生成随机种子初始化defaut_random_engine</span></div><div class="line"><span class="built_in">std</span>::random_device rd;</div><div class="line">std::default_random_engine generator(rd());</div><div class="line"></div><div class="line"><span class="comment">//也可直接初始化</span></div><div class="line"><span class="built_in">std</span>::default_random_engine generator;</div><div class="line"></div><div class="line"><span class="comment">//int型均匀分布</span></div><div class="line"><span class="comment">//可以使用std::uniform_int_distribution&lt;&gt; dis_u_i(1,6);</span></div><div class="line"><span class="built_in">std</span>::uniform_int_distribution&lt;<span class="keyword">int</span>&gt; dis_u_i(<span class="number">1</span>,<span class="number">6</span>);</div><div class="line"><span class="comment">//参数是generator,不是generator()</span></div><div class="line"><span class="keyword">int</span> rand_int = dis_u_i(generator);  <span class="comment">// 生成均匀1-6的均匀int分布</span></div><div class="line"></div><div class="line"><span class="comment">//double型均匀分布</span></div><div class="line"><span class="built_in">std</span>::uniform_real_distribution&lt;<span class="keyword">double</span>&gt; dis_u_r(<span class="number">0.0</span>,<span class="number">1.0</span>)</div><div class="line"><span class="keyword">double</span> rand_double = dis_u_r(generator);  <span class="comment">// 生成均匀0.0-1.0的double分布</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//离散分布，int型</span></div><div class="line"><span class="built_in">std</span>::discrete_distribution&lt;<span class="keyword">int</span>&gt; dis_dis(&#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;);  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"min() == "</span> &lt;&lt; dis_dis.min() &lt;&lt; <span class="built_in">endl</span>; <span class="comment">//最小值0</span></div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"max() == "</span> &lt;&lt; dis_dis.max() &lt;&lt; <span class="built_in">endl</span>; <span class="comment">//最大值4</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; prob = dis_dis.probabilities(); <span class="comment">//每个的得概率</span></div><div class="line"><span class="keyword">int</span> rand_dis=dis_dis(generator);<span class="comment">//离散分布产生的下个值0~4</span></div><div class="line"></div><div class="line"><span class="comment">//正态分布(均值和标准差)</span></div><div class="line"><span class="built_in">std</span>::normal_distribution&lt;<span class="keyword">double</span>&gt; dis_norm(<span class="number">10</span>, <span class="number">2</span>);  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"min() == "</span> &lt;&lt; dis_norm.min() &lt;&lt; <span class="built_in">endl</span>;  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"max() == "</span> &lt;&lt; dis_norm.max() &lt;&lt; <span class="built_in">endl</span>;  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"m() == "</span>  &lt;&lt; dis_norm.mean() &lt;&lt; <span class="built_in">endl</span>;  </div><div class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"s() == "</span> &lt;&lt; dis_norm.stddev() &lt;&lt; <span class="built_in">endl</span>; </div><div class="line"><span class="comment">//下次生成正态分布的值</span></div><div class="line"><span class="keyword">double</span> rand_norm=dis_norm(generator);</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//伯努利分布(bool值)</span></div><div class="line"><span class="built_in">std</span>::<span class="function">bernoulli_distribution <span class="title">dis_bool</span><span class="params">(<span class="number">0.5</span>)</span></span>;</div><div class="line"><span class="comment">//为true概率值</span></div><div class="line"><span class="built_in">cout</span>&lt;&lt;dis_bool.p&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"><span class="keyword">bool</span> rand_bool=dis_bool(generator);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//二次分布(次数和概率)</span></div><div class="line"><span class="comment">//example:已知硬币正面的概率为0.5，扔10次后有n次（n=(1到10)）为正面的概率</span></div><div class="line"><span class="built_in">std</span>::binomial_distribution&lt;<span class="keyword">int</span>&gt; dis_bin(<span class="number">10</span>, <span class="number">0.5</span>);  </div><div class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  </div><div class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"p == "</span> &lt;&lt; dis_bin.p() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  </div><div class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"t == "</span> &lt;&lt; dis_bin.t() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;++i)</div><div class="line">&#123;</div><div class="line">  <span class="comment">//出现正面的次数0-10</span></div><div class="line">  <span class="built_in">cout</span>&lt;&lt;dis_norm(generator)&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//为了复用,可以使用std::bind</span></div><div class="line"><span class="keyword">auto</span> dice = <span class="built_in">std</span>::bind (dis_u_i, generator );</div><div class="line"><span class="keyword">int</span> wisdom = dice()+dice()+dice();</div></pre></td></tr></table></figure>
+<h4 id="shuffle函数"><a href="#shuffle函数" class="headerlink" title="shuffle函数"></a>shuffle函数</h4><p><code>shuffle</code>和<code>random_shuffle</code>这两个函数位均位于于 <code>&lt;algorithm&gt;</code> 头文件之下。   </p>
+<ul>
+<li><code>random_shuffle</code>算法在C++11之前就已经存在，C++11之后由于右值引用的引入，它的使用范围变大了。<br><strong>该函数在c++14已弃用</strong>，因为其采用了c函数，而且该函数采用全局状态的种子。<code>shuffle</code>的生成器采用<code>&lt;random&gt;</code>,<br>不会保存全局状态，而且可以使用生成器和分布(瞎比翻译请见谅)。</li>
+</ul>
+<blockquote>
+<p>std::random_shuffle may make use, under the hood, of random C family of functions.<br>These functions use global state for seeds and other state.<br>So it is being deprecated because shuffle will do the same, but better.<br>Namely, it uses the new <random> header from C++11 that doesn’t use global state,<br>but its own objects making use of generators, devices and distributions.   </random></p>
+</blockquote>
+<ul>
+<li><code>shuffle</code>算法是从C++11之后才开始出现，可以与随机数和分布库一起使用。<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//&lt;!-- 示例代码 --&gt;</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;random&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="comment">//自定义随机生成器</span></div><div class="line"><span class="comment">//class SelfGenerator</span></div><div class="line"><span class="comment">//&#123;</span></div><div class="line"><span class="comment">//public:</span></div><div class="line">    <span class="comment">//typedef ptrdiff_t long long</span></div><div class="line"><span class="comment">//    ptrdiff_t operator() (ptrdiff_t max)</span></div><div class="line"><span class="comment">//    &#123;</span></div><div class="line"><span class="comment">//        double temp;</span></div><div class="line"><span class="comment">//        temp = static_cast&lt;double&gt;(rand()) / static_cast&lt;double&gt;(RAND_MAX);</span></div><div class="line"><span class="comment">//        return static_cast&lt;ptrdiff_t&gt;(temp * max);</span></div><div class="line"><span class="comment">//   &#125;</span></div><div class="line"><span class="comment">//&#125;;</span></div><div class="line"><span class="comment">//int myrandom (int i) &#123; return std::rand()%i;&#125;</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line"><span class="comment">//数组</span></div><div class="line"><span class="keyword">int</span> nums[]=&#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span> &#125;;</div><div class="line"><span class="keyword">int</span> n=<span class="keyword">sizeof</span>(nums)/<span class="keyword">sizeof</span>(nums[<span class="number">0</span>]);</div><div class="line"></div><div class="line"><span class="comment">//向量</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>, 10&gt; a(nums,nums+n);</div><div class="line"></div><div class="line"><span class="comment">//默认生成器</span></div><div class="line">default_random_engine defaultEngine;    </div><div class="line">shuffle(a.begin(), a.end(), defaultEngine);</div><div class="line"><span class="comment">//随机种子生成器</span></div><div class="line">shuffle(a.begin(), a.end(), defaultEngine(rand_device()());</div><div class="line"></div><div class="line"><span class="comment">//对数组随机排序</span></div><div class="line">shuffle(nums, nums+n, defaultEngine);</div><div class="line"></div><div class="line"><span class="comment">//自定义随机函数，random_shuffle在c++14已弃用</span></div><div class="line"><span class="comment">//random_shuffle(a.begin(), a.end());     // use default rand()</span></div><div class="line"><span class="comment">//SelfGenerator sg;//伪函数</span></div><div class="line"><span class="comment">//random_shuffle(a.begin(), a.end(), sg);</span></div><div class="line"><span class="comment">//random_shuffle(a.begin(), a.end(), myrandom);</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/blog/2017/language/cpp/C++多线程(3)-async/">
+                    C++多线程之异步线程
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/blog/2017/git/利用GitPages制作个人博客/">
+                    利用GitPages制作个人博客
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#生成器"><span class="toc-number">1.</span> <span class="toc-text">生成器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分布器"><span class="toc-number">2.</span> <span class="toc-text">分布器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#示例代码"><span class="toc-number">3.</span> <span class="toc-text">示例代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shuffle函数"><span class="toc-number">4.</span> <span class="toc-text">shuffle函数</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/blog/2017/language/cpp/C++多线程(3)-async/" title="上一篇: C++多线程之异步线程">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/blog/2017/git/利用GitPages制作个人博客/" title="下一篇: 利用GitPages制作个人博客">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/blog/2018/framework/qt/QtCreator编写ROS/">QtCreator编写ROS</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2018/cmake/Cmake常用命令及VScode的配置/">Cmake常用命令及VScode的配置</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2018/ros/moveit学习笔记(1)/">moveit学习笔记(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++函数与函数指针/">C++仿函数与函数指针</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++多线程(2)-thread/">C++多线程之thread</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/nginx/kong配置/">C++多线程之thread</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++异常处理(2)-noexcept/">C++异常处理之noexcept</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++多线程(3)-async/">C++多线程之异步线程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++随机数-random/">C++随机库-random</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/git/利用GitPages制作个人博客/">利用GitPages制作个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/opencv-halcon算子对比(1-滤波)/">opencv-halcon算子对比(1-滤波)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/halcon学习笔记/">halcon学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS节点-初始化和多线程/">ROS节点-节点初始化</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS插件-plugin和nodelet/">ROS插件-plugin和nodelet</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/Movieit 模块说明/">Movieit 模块说明</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS包-dynamic_reconfigure/">ROS包-dynamic_reconfigure</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS启动-rosrun和roslaunch/">ROS启动-rosrun和roslaunch</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS编译-catkintools/">ROS编译-catkintools</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/ros/ROS包-service和actionlib /">ROS包-service和actionlib</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/others/SpringBoot笔记/">SpringBoot笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cv/halcon模板匹配入门/">halcon模板匹配入门</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++时间-chrono/">C++时间库chrono</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(3)/">Tensorflow学习笔记(3)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/system/Win7下Docker文件共享/">Win7下Docker文件共享</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/system/ubuntu 开发环境搭建/">ubuntu 开发环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/others/Pyspider爬虫的编码/">pyspider爬虫的编码</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/framework/qt/Qt的CSS图像精灵/">Qt的CSS图像精灵</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++动态加载dll/">C++动态加载Dll</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(2)/">Tensorflow学习笔记(2)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/lua/lua测试/">Lua 测试</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++XML库-pugixml/">C++ xml库-pugixml</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/go/go测试/">go 测试</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/language/cpp/C++命令行-gflags/">C++命令行-gflags</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/git/Git 的Push和Pull/">Git 的Push和Pull</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/iot/Protobuf使用/">Protobuf使用</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/slam/orb-slam2安装教程/">orb-slam2安装教程</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/VOC 数据集格式/">VOC数据集格式</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-Tensor(1)/">Pytorch笔记-Tensor(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/pytorch笔记-激活函数(2)/">pytorch笔记-激活函数(2)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/tensorflow/Tensorflow学习笔记(1)/">Tensorflow学习笔记(1)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-torchvision(3)/">Pytorch笔记-torchvision(3)</a></li><li class="post-list-item"><a class="post-list-link" href="/blog/2017/cnn/pytorch/Pytorch笔记-optim(4)/">Pytorch笔记-optim(4)</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2018 烫烫屯
+            </div>
+            <div class="footer-right">
+                <!--<a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>-->
+            </div>
+        </div>
+        
+    </div>
+</footer>
+    </div>
+    
+    <script src="/blog/js/GithubRepoWidget.js"></script>
+
+<script data-main="/blog/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/blog/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        $("a[target=_blank]").removeAttr("target");
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
