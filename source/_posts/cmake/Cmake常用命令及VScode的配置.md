@@ -29,6 +29,8 @@ date: 2018-01-24 14:41:03
 }
 ```
 
+<!-- more -->
+
 ### 环境变量引用
 ```json
 {
@@ -46,6 +48,7 @@ date: 2018-01-24 14:41:03
   "${config:Name}" //example: ${config:editor.fontSize}
   "${command:CommandID}" //example: ${command:explorer.newFolder}
 ```
+
 
 
 ###  VSCode预定义变量

@@ -14,7 +14,7 @@ date: 2018-01-24 15:51:52
 $ sudo apt-get update
 $ sudo apt-get install python-catkin-tools
 ```
-
+<!-- more -->
 ### 创建工作空间
 
 ```bash
