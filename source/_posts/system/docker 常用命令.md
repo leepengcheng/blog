@@ -44,6 +44,10 @@ docker toolbox其实就是在windows里跑了linux(boot2docker)虚拟机，然�
 --link=[]: 添加链接到另一个容器；
 
 --expose=[]: 开放一个端口或一组端口；
+
+--rm :容器在终止后会立刻删除
+
+-p 80:8888 :映射<宿主端口>:<容器端口>
 ```
 实例：
 ```bash
