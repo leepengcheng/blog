@@ -182,6 +182,10 @@ file(REMOVE "test.txt")                         #删除文件
 file(TIMESTAMP ${PROJECT_SOURCE_DIR}/test.txt  filestamp) #文件创建时间戳记
 file(DOWNLOAD www.baidu.com/data.txt ./data.txt 5)          #下载文件
 file(COPY )
+file(GLOB variable [RELATIVE path] [globbing expressions]...) #搜索文件
+file(GLOB ADSLIB_SRC src/AdsLib/*.cpp src/AdsLib/*.h)
+file(GLOB_RECURSE variable [RELATIVE path]
+
 ```
 
 
@@ -241,4 +245,12 @@ set(PI 3.14159)
 #输出:config.h
 #define  USE_FSTREAM
 #define  PI 3.14159
+```
+
+
+##系统平台判断
+```cmake
+${CMAKE_SYSTEM}   #Windows-10.0.16299
+${CMAKE_SYSTEM_NAME}  #IF(CMAKE_SYSTEM_NAME MATCHES "Windows")
+#或直接查看 WIN32|UNIX|APPLE是否定义
 ```
