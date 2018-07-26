@@ -42,10 +42,14 @@ torch.clamp(input, min, max, out=None) → Tensor
 在损失函数中，weight decay是放在正则项（regularization）前面的一个系数，正则项一般指示模型的复杂度，  
 所以weight decay的作用是调节模型复杂度对损失函数的影响，若weight decay很大，则复杂的模型损失函数的值也就大。    
 二、momentum是梯度下降法中一种常用的加速技术。对于一般的SGD,沿负梯度方向下降，其表达式为,      
-$x \leftarrow x-\alpha*dx$
-而带momentum项的SGD则写生如下形式:       
-$v =\beta*v-\alpha*dx$    
-$x \leftarrow x+v $    
+
+$$ x \leftarrow x-\alpha*dx $$
+
+而带momentum项的SGD则写生如下形式:     
+
+$$ v =\beta*v-\alpha*dx $$    
+$$ x \leftarrow x+v $$    
+$$ a^2=b^2+c^2 $$
 
 其中即momentum系数，通俗的理解上面式子就是，如果上一次的momentum（即）与这一次的负梯度方向是相同的，那这次下降的幅度就会加大，    
 所以这样做能够达到加速收敛的过程。    
