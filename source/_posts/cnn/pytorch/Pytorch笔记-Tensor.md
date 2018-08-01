@@ -1,12 +1,12 @@
 ---
-title: Pytorch笔记-Tensor(1)
+title: Pytorch笔记-Tensor
 categories: ml 
 tags:
   - pytorch
 date: 2017-01-02 15:59:19
 ---
 
-
+#### torch.gather
 ```python
 torch.gather(input, dim, index, out=None) → Tensor
 #按照制定轴dim获得数据,等价于tensor.gather(dim,index)
@@ -16,16 +16,17 @@ torch.gather(input, dim, index, out=None) → Tensor
 #out[i][j][k] = input[i][N][k]  # if dim == 1
 #out[i][j][k] = input[i][j][N]  # if dim == 2
 
-```
 >>> t = torch.Tensor([[1,2],[3,4]])
 >>> torch.gather(t, 1, torch.LongTensor([[0,0],[1,0]]))
->>> 1  1  #对于x[0][1],由于index[0][1]=0,dim=1则
->>> 4  3  #则x=t[0][index[0][1]]=t[0][0]=1
+#index和input的batch_size一样(行数目一致))
+#[1,2]的index[0,0]为[1,1]
+#[3,4]的index[1,0]为[4,3]
+#输出：
+#1  1  
+#4  3 
 ```
-```
 
-
-
+#### torch.clamp
 ```python
 torch.clamp(input, min, max, out=None) → Tensor
 #将tensor限制在[min, max]范围内，等价于tensor.clamp(min,max)
@@ -37,40 +38,17 @@ torch.clamp(input, min, max, out=None) → Tensor
 >>> torch.clamp(x,0.5,1),torch.clamp(x,min=0.5),torch.clamp(x,max=1)
 ```
 
-
-一、weight decay（权值衰减）的使用既不是为了提高收敛精确度也不是为了提高收敛速度，其最终目的是防止过拟合。   
-在损失函数中，weight decay是放在正则项（regularization）前面的一个系数，正则项一般指示模型的复杂度，  
-所以weight decay的作用是调节模型复杂度对损失函数的影响，若weight decay很大，则复杂的模型损失函数的值也就大。    
-二、momentum是梯度下降法中一种常用的加速技术。对于一般的SGD,沿负梯度方向下降，其表达式为,      
-
-$$ x \leftarrow x-\alpha*dx $$
-
-而带momentum项的SGD则写生如下形式:     
-
-$$ v =\beta*v-\alpha*dx $$    
-$$ x \leftarrow x+v $$    
-$$ a^2=b^2+c^2 $$
-
-其中即momentum系数，通俗的理解上面式子就是，如果上一次的momentum（即）与这一次的负梯度方向是相同的，那这次下降的幅度就会加大，    
-所以这样做能够达到加速收敛的过程。    
-三、normalization。如果我没有理解错的话，题主的意思应该是batch normalization吧。batch normalization的是指在神经网络中激活函数的前面，    
-将按照特征进行normalization，这样做的好处有三点：    
-* 1、提高梯度在网络中的流动。Normalization能够使特征全部缩放到[0,1],这样在反向传播时候的梯度都是在1左右，避免了梯度消失现象。   
-* 2、提升学习速率。归一化后的数据能够快速的达到收敛。   
-* 3、减少模型训练对初始化的依赖。
-
-
-
-
-Variable的`require_grad`与`volatile`参数:    
+-------
+**(提示：pytorch 0.4已经废除Variable及volatile关键字)**   
+Variable的`requires_grad`与`volatile`参数:    
 在创建一个Variable是，有两个bool型参数可供选择，一个是`requires_grad`，一个是`Volatile`
 * `requires_grad`不是十分对该Variable进行计算梯度，一般在finetune是可以用来固定某些层的参数，减少计算。
 只要有一个叶节点是True，其后续的节点都是True
 * `volatile=True`，一般用在训练好网络，只进行inference操作时使用，其不建立Variable与Function的关系。
 只要有一个叶子节点是True，其后节点都是True
+--------
 
-
-
+#### torch.nn.Conv2d
 ```python
 class torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True)
 

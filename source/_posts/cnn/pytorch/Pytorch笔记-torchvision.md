@@ -1,5 +1,5 @@
 ---
-title: Pytorch笔记-torchvision(3)
+title: Pytorch笔记-torchvision
 categories: ml 
 tags:
   - pytorch

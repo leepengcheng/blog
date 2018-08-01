@@ -1,5 +1,5 @@
 ---
-title: pytorch笔记-激活函数(2)
+title: pytorch笔记-激活函数
 categories: ml 
 tags:
   - pytorch
