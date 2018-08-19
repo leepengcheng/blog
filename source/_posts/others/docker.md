@@ -26,3 +26,6 @@ $ sudo groupadd docker
 $ sudo gpasswd -a $USER docker
 $ sudo service docker restart 
 ```
+
+### nginx重启
+>只能重启容器,进入docker nginx后`nginx -s reload`无效
