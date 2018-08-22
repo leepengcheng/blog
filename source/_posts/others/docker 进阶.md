@@ -20,12 +20,17 @@ docker cp   /home/zen 60aba9b3a285:/tmp/flogo-web/build
 ```
 
 
-### 免sudo登录
+### linux免sudo登录
 ```bash
 $ sudo groupadd docker
 $ sudo gpasswd -a $USER docker
 $ sudo service docker restart 
 ```
 
-### nginx重启
->只能重启容器,进入docker nginx后`nginx -s reload`无效
+### nginx容器重启
+* 方法1:直接重启容器
+* 方法2:docker exec <container_id|container_name> nginx -s reload
+
+
+### 容器dns解析
+docker容器内部的dns ip永远为`127.0.0.11`;例如nginx需要设置`resolver 127.0.0.11;`
