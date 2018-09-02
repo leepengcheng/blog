@@ -24,3 +24,17 @@ sudo cp bin/protoc /usr/bin/protoc
 ```bash
 protoc  --version
 ```
+### python版
+
+* 安装grpcio和grpcio-tools
+```bash
+pip install grpcio
+python -m pip install grpcio-tools googleapis-common-protos
+```
+
+### 生成文件
+```bash
+ python -m grpc_tools.protoc -I../../protos --python_out=. --grpc_python_out=. ../../protos/helloworld.proto
+```
+
+### 继承service,并实现rpc方法
