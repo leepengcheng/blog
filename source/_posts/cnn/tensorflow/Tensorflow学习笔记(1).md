@@ -1,36 +1,84 @@
 ---
-title: Tensorflow学习笔记(1)
+title: Tensorflow学习笔记(2)
 categories: ml 
 tags:
   - tensorflow
-date: 2017-01-02 15:59:19
+date: 2017-01-22 22:17:25
 ---
 
-* 学习率不是越小越好，下列例子中0.5的学习率比0.1更快且更容易收敛
-* 下述程序属于线性模型，不能使用交叉熵的损失函数，否则无法收敛
-<!--more -->
+#### 均方差与交叉熵
+
 ```python
 #coding:utf-8
 import tensorflow as tf
-'''
-已知方程 xW+B=y
-给出100个x输入和对应的输出y
-求W和b的拟合值
-即W->[0.100, 0.200] b->0.300的偏离程度
-'''
-# 生成随机数据总共 100 个点的输入值和输出值
-x_data = np.float32(np.random.rand(100, 2)) 
-y_data = np.dot(x_data,[[0.1],[0.2]]) + 0.300
-W = tf.Variable(tf.random_uniform([2, 1], -1.0, 1.0))
-B = tf.Variable(tf.zeros([1]))
-y = tf.matmul(x_data,W) + B# 构造线性模型 x*W+b=y
-loss = tf.reduce_mean(tf.square(y - y_data))# 损失函数->均方差
-# loss=tf.reduce_mean(-y_data*tf.log(y))# 损失函数->交叉熵
-train  = tf.train.GradientDescentOptimizer(0.5).minimize(loss)#学习率
-init = tf.global_variables_initializer()# 初始化变量
-with tf.Session() as sess:
-  sess.run(init)
-  for step in range(100):
-      l,_,w,b=sess.run([loss,train,W,B])
-      print("step: %4d-loss:%s-w:%s-b:%s\n"%(step,l,w,b))
+import tensorlayer as tl
+#交互输出环境
+sess = tf.InteractiveSession()
+# 准备数据 如果本地未发现则网络下载 
+# X_train:(50000,784) ->50000幅784个像素的向量(28x28图片转换而成)
+# y_train:(50000,1)  输入的50000幅图片的对应的数字标签
+# 训练数据的最后10000条作为验证数据，详见下代码
+# >>X_train, X_val = X_train[:-10000], X_train[-10000:]
+# >>y_train, y_val = y_train[:-10000], y_train[-10000:]
+# X_test y_test,同x_train y_train,用于测试的图片
+X_train, y_train, X_val, y_val, X_test, y_test = tl.files.load_mnist_dataset(shape=(-1,784))
+# 定义 占位符(即张量),用于存放图片的输入数据x->x_tran,和标签有y_->y_train
+x = tf.placeholder(tf.float32, shape=[None, 784], name='x')
+y_ = tf.placeholder(tf.int64, shape=[None,], name='y_')
+
+# 定义模型
+network = tl.layers.InputLayer(x, name='input_layer')
+network = tl.layers.DropoutLayer(network, keep=0.8, name='drop1')
+
+#隐藏层1 全连接层  50%退出率 有800个神经元，激活函数relu,输入神经元是network
+network = tl.layers.DenseLayer(
+    network, n_units=800, act=tf.nn.relu, name='relu1')
+#退出率 
+network = tl.layers.DropoutLayer(network, keep=0.5, name='drop2')
+
+#隐藏层2 全连接层 50%退出率 有800个神经元，激活函数relu,输入神经元是network
+network = tl.layers.DenseLayer(
+    network, n_units=800, act=tf.nn.relu, name='relu2')
+network = tl.layers.DropoutLayer(network, keep=0.5, name='drop3')
+#输出层 全连接层 50%退出率  10个神经元, 激活函数identity:线性不变,原样输出
+network = tl.layers.DenseLayer(
+    network, n_units=10, act=tf.identity, name='output_layer')
+
+# 定义损失函数和衡量指标
+# 得出输出层的输出
+y = network.outputs
+#求出损失函数-》交叉熵代价函数：此处未用方差代价函数，详见上述对比
+#在内部使用 tf.nn.sparse_softmax_cross_entropy_with_logits() 实现 softmax
+cost = tl.cost.cross_entropy(y, y_,"cost")
+# argmax(y, 1)最大值的序号,即计算出的数字的标签->是否等于训练标签值y_
+correct_prediction = tf.equal(tf.argmax(y, 1), y_)
+# tf.cast 数据类型转换->true false 转换为float32,然后加起来求平均值
+acc = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+# 将计算出的y值的元素映射到0～1区间，然后求出最大的数字标签
+y_op = tf.argmax(tf.nn.softmax(y), 1)
+
+# 定义 optimizer
+train_params = network.all_params
+# 设置训练参数 学习率 
+train_op = tf.train.AdamOptimizer(learning_rate=0.0001, beta1=0.9, beta2=0.999,
+                            epsilon=1e-08, use_locking=False).minimize(cost, var_list=train_params)
+
+# 初始化 session 中的所有参数
+tl.layers.initialize_global_variables(sess)
+
+# 列出模型信息
+network.print_params()
+network.print_layers()
+
+# 训练模型
+tl.utils.fit(sess, network, train_op, cost, X_train, y_train, x, y_,
+            acc=acc, batch_size=500, n_epoch=500, print_freq=5,
+            X_val=X_val, y_val=y_val, eval_train=False)
+
+# 评估模型
+tl.utils.test(sess, network, acc, X_test, y_test, x, y_, batch_size=None, cost=cost)
+
+# 把模型保存成 .npz 文件
+tl.files.save_npz(network.all_params , name='model.npz')
+sess.close()
 ```

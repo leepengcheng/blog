@@ -1,84 +1,72 @@
 ---
-title: Tensorflow学习笔记(2)
-categories: ml 
+title: Tensorflow学习笔记(3)
+categories: ml
 tags:
   - tensorflow
-date: 2017-01-22 22:17:25
+date: 2017-03-03 16:49:36
 ---
 
-#### 均方差与交叉熵
+tf.nn.conv2d是TensorFlow里面实现卷积的函数,参考文档对它的介绍并不是很详细。   
+实际上这是搭建卷积神经网络比较核心的一个方法,非常重要:   
+```python 
+tf.nn.conv2d(input, filter, strides, padding, use_cudnn_on_gpu=None, name=None)
+```
+<!--more-->
+除去name参数用以指定该操作的name,与方法有关的一共五个参数：  
+* `input`：指需要做卷积的输入图像,它要求是一个Tensor,具有`[batch, in_height, in_width, in_channels]`这样的shape    
+具体含义是`[训练时一个batch的图片数量, 图片高度, 图片宽度, 图像通道数]`,注意这是一个4维的Tensor,要求类型为float32或float64      
+* `filter`：相当于CNN中的卷积核,它要求是一个Tensor,具有`[filter_height, filter_width, in_channels, out_channels]`这样的shape    
+具体含义是`[卷积核的高度,卷积核的宽度,图像通道数,卷积核个数]`,要求类型与参数input相同,有一个地方需要注意  
+* `in_channels`:就是参数input的第四维
+* `strides`：卷积时在图像每一维的步长,这是一个一维的向量,长度4    
+* `padding`：string类型的量,只能是"SAME","VALID"其中之一,这个值决定了不同的卷积方式（后面会介绍）  
+* `use_cudnn_on_gpu`:bool类型,是否使用cudnn加速,默认为true。   
+结果返回一个Tensor,这个输出,就是我们常说的feature map    
+那么TensorFlow的卷积具体是怎样实现的呢,用一些例子去解释它：   
+1.考虑一种最简单的情况,现在有一张3×3单通道的图像（对应的shape：[1,3,3,1]）,  
+用一个1×1的卷积核（对应的shape：[1,1,1,1]）去做卷积,最后会得到一张3×3的feature map      
+2.增加图片的通道数,使用一张3×3五通道的图像（对应的shape：[1,3,3,5]）,用一个1×1的卷积核（对应的shape：[1,1,1,1]）   
+去做卷积,仍然是一张3×3的feature map,这就相当于每一个像素点,卷积核都与该像素点的每一个通道做点积     
+```python
+#图片数量1-大小(3行-3列)-5通道
+input = tf.Variable(tf.random_normal([1,3,3,5]))  
+#核大小(1行-1列)-5通道-输出值1个
+filter = tf.Variable(tf.random_normal([1,1,5,1])) 
+op = tf.nn.conv2d(input, filter, strides=[1, 1, 1, 1], padding='VALID')  
+```
+
+
+max pooling是CNN当中的最大值池化操作,其实用法和卷积很类似 
+```python
+tf.nn.max_pool(value, ksize, strides, padding, name=None)
+```
+参数是四个,和卷积很类似：
+* `value`： 需要池化的输入,一般池化层接在卷积层后面,所以输入通常是feature map,依然是`[batch, height, width, channels]`   
+* `ksize`： 池化窗口的大小,取一个四维向量,一般是[1, height, width, 1],因为我们不想在batch和channels上做池化,所以这两个维度设为了1  
+* `strides`：和卷积类似,窗口在每一个维度上滑动的步长,一般也是`[1, stride,stride, 1]`
+* `adding`： 和卷积类似,可以取'VALID' 或者'SAME'  
+* `返回值`:  Tensor类型,shape仍然是[batch, height, width, channels]这种形式  
+
 
 ```python
-#coding:utf-8
-import tensorflow as tf
-import tensorlayer as tl
-#交互输出环境
-sess = tf.InteractiveSession()
-# 准备数据 如果本地未发现则网络下载 
-# X_train:(50000,784) ->50000幅784个像素的向量(28x28图片转换而成)
-# y_train:(50000,1)  输入的50000幅图片的对应的数字标签
-# 训练数据的最后10000条作为验证数据，详见下代码
-# >>X_train, X_val = X_train[:-10000], X_train[-10000:]
-# >>y_train, y_val = y_train[:-10000], y_train[-10000:]
-# X_test y_test,同x_train y_train,用于测试的图片
-X_train, y_train, X_val, y_val, X_test, y_test = tl.files.load_mnist_dataset(shape=(-1,784))
-# 定义 占位符(即张量),用于存放图片的输入数据x->x_tran,和标签有y_->y_train
-x = tf.placeholder(tf.float32, shape=[None, 784], name='x')
-y_ = tf.placeholder(tf.int64, shape=[None,], name='y_')
-
-# 定义模型
-network = tl.layers.InputLayer(x, name='input_layer')
-network = tl.layers.DropoutLayer(network, keep=0.8, name='drop1')
-
-#隐藏层1 全连接层  50%退出率 有800个神经元，激活函数relu,输入神经元是network
-network = tl.layers.DenseLayer(
-    network, n_units=800, act=tf.nn.relu, name='relu1')
-#退出率 
-network = tl.layers.DropoutLayer(network, keep=0.5, name='drop2')
-
-#隐藏层2 全连接层 50%退出率 有800个神经元，激活函数relu,输入神经元是network
-network = tl.layers.DenseLayer(
-    network, n_units=800, act=tf.nn.relu, name='relu2')
-network = tl.layers.DropoutLayer(network, keep=0.5, name='drop3')
-#输出层 全连接层 50%退出率  10个神经元, 激活函数identity:线性不变,原样输出
-network = tl.layers.DenseLayer(
-    network, n_units=10, act=tf.identity, name='output_layer')
-
-# 定义损失函数和衡量指标
-# 得出输出层的输出
-y = network.outputs
-#求出损失函数-》交叉熵代价函数：此处未用方差代价函数，详见上述对比
-#在内部使用 tf.nn.sparse_softmax_cross_entropy_with_logits() 实现 softmax
-cost = tl.cost.cross_entropy(y, y_,"cost")
-# argmax(y, 1)最大值的序号,即计算出的数字的标签->是否等于训练标签值y_
-correct_prediction = tf.equal(tf.argmax(y, 1), y_)
-# tf.cast 数据类型转换->true false 转换为float32,然后加起来求平均值
-acc = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-# 将计算出的y值的元素映射到0～1区间，然后求出最大的数字标签
-y_op = tf.argmax(tf.nn.softmax(y), 1)
-
-# 定义 optimizer
-train_params = network.all_params
-# 设置训练参数 学习率 
-train_op = tf.train.AdamOptimizer(learning_rate=0.0001, beta1=0.9, beta2=0.999,
-                            epsilon=1e-08, use_locking=False).minimize(cost, var_list=train_params)
-
-# 初始化 session 中的所有参数
-tl.layers.initialize_global_variables(sess)
-
-# 列出模型信息
-network.print_params()
-network.print_layers()
-
-# 训练模型
-tl.utils.fit(sess, network, train_op, cost, X_train, y_train, x, y_,
-            acc=acc, batch_size=500, n_epoch=500, print_freq=5,
-            X_val=X_val, y_val=y_val, eval_train=False)
-
-# 评估模型
-tl.utils.test(sess, network, acc, X_test, y_test, x, y_, batch_size=None, cost=cost)
-
-# 把模型保存成 .npz 文件
-tl.files.save_npz(network.all_params , name='model.npz')
-sess.close()
+a=tf.constant([
+1.0,2.0,3.0,4.0,  
+5.0,6.0,7.0,8.0,  
+8.0,7.0,6.0,5.0,  
+4.0,3.0,2.0,1.0,  
+4.0,3.0,2.0,1.0,  
+8.0,7.0,6.0,5.0,  
+1.0,2.0,3.0,4.0,  
+5.0,6.0,7.0,8.0])  
+                  
+a=tf.reshape(a,[1,4,4,2])  
+  
+pooling=tf.nn.max_pool(a,[1,2,2,1],[1,1,1,1],padding='VALID')  
+with tf.Session() as sess:  
+    print("image:")  
+    image=sess.run(a)  
+    print (image)  
+    print("reslut:")  
+    result=sess.run(pooling)  
+    print (result)  
 ```
