@@ -26,6 +26,27 @@ torch.gather(input, dim, index, out=None) → Tensor
 #4  3 
 ```
 
+
+#### torch.Tensor.scatter_
+```python
+torch.gather(input, dim, index, out=None) → Tensor
+#按照制定轴dim获得数据,等价于tensor.gather(dim,index)
+#index 为LongthTensor不是FloatTensor
+#N=index[i][j][k]
+#out[i][j][k] = input[N][j][k]  # if dim == 0
+#out[i][j][k] = input[i][N][k]  # if dim == 1
+#out[i][j][k] = input[i][j][N]  # if dim == 2
+
+>>> t = torch.Tensor([[1,2],[3,4]])
+>>> torch.gather(t, 1, torch.LongTensor([[0,0],[1,0]]))
+#index和input的batch_size一样(行数目一致))
+#[1,2]的index[0,0]为[1,1]
+#[3,4]的index[1,0]为[4,3]
+#输出：
+#1  1  
+#4  3 
+```
+
 #### torch.clamp
 ```python
 torch.clamp(input, min, max, out=None) → Tensor
