@@ -15,16 +15,19 @@ n.BatchNorm*d的是指在神经网络中激活函数的前面，
 
 
 #### nn.Embedding
-num_embeddings (int): 向量的数目(batch_size?)
-embedding_dim (int): 每个向量的大小
-padding_idx (int, optional):遇到此下标时填充0
-max_norm (float, optional): 如果提供则会归一化输入，使其范数小于该值
-norm_type (float, optional): 为`max_norm`选项提供p范数的p
-scale_grad_by_freq (bool, optional): 根据向量中单词中的频率缩放梯度
+num_embeddings (int): 向量的数目(batch_size?)   
+embedding_dim (int): 每个向量的大小   
+padding_idx (int, optional):遇到此下标时填充0   
+max_norm (float, optional): 如果提供则会归一化输入，使其范数小于该值   
+norm_type (float, optional): 为`max_norm`选项提供p范数的p   
+scale_grad_by_freq (bool, optional): 根据向量中单词中的频率缩放梯度  
 sparse (bool, optional): if ``True``, gradient w.r.t. weight matrix will be a sparse tensor. See Notes for
                             more details regarding sparse gradients.
 
 ```python
+#相当于size=10的字典,每个变量由3个向量组成
+#根据input的值自动生成对应的向量值
+#例如input1中的1,对应向量[ 0.3890, -0.1115, -0.5363]
 embed1=nn.Embedding(10,3)
 input=torch.LongTensor([[1,2,3,4],[4,3,2,1]])
 #注意要求输入LongTensor

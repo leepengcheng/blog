@@ -35,6 +35,24 @@ output = m(input)
 
 ```
 
+### nn.LogSoftmax
+等于log(nn.Softmax),与`nn.Softmax`不同点:在log域,loss惩罚会增大,    
+例如log(0.9)-log(0.1)=-0.10536051565782628+2.3025850929940455=2.197224577336219,    
+即在log域二者的loss惩罚相差将近2.197224577336219/(0.9-0.1)=2.76 53倍,pytorch的CrossEntropyLoss也内置LogSoftmax
+
+```python
+input = torch.randn(2, 3)
+#tensor([[ 1.9144, -1.9266,  0.8993],[-0.0207, -1.1922, -0.6528]])
+m = nn.Softmax(0) #每列之和为1
+output = m(input)
+#tensor([[ 0.8738,  0.3242,  0.8252],[ 0.1262,  0.6758,  0.1748]])
+
+m = nn.Softmax(1) #每行之和为1
+output = m(input)
+#tensor([[ 0.7226,  0.0155,  0.2619],[ 0.5431,  0.1683,  0.2886]])
+
+```
+
 
 ### nn.Sigmod
 针对单个Tensor的映射(用于二分类))
