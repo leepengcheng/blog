@@ -57,3 +57,28 @@ output2=embed2(input)
 #          [ 0.0000,  0.0000,  0.0000]]])
 
 ```
+
+
+### nn.MaxPool2d
+
+```python
+ceil_mode主要用于图片边缘特征的处理,根据image_size%kernel_size的值会影响feature_map的大小
+当image_size%kernel_size==0时,ceil_mode=True不起作用
+当image_size%kernel_size!=0时,ceil_mode=True会将不足的区域设为-Nan
+x=torch.randn(1,1,5,5)
+# tensor([[[[-0.7191, -1.5240, -0.8989, -0.5512,  0.0420],
+#           [-0.1819,  0.9954, -0.5986,  1.7122,  0.2929],
+#           [-2.3068, -1.2146,  0.1682,  0.4681, -0.9131],
+#           [-0.9621,  0.2287, -0.4446, -0.4750, -0.4182],
+#           [-0.2618, -0.1063, -0.0056, -0.1310,  0.1979]]]])
+pool_1=torch.nn.MaxPool2d(kernel_size=2,ceil_mode=False)
+pool_1(x)
+# tensor([[[[0.9954, 1.7122],
+#           [0.2287, 0.4681]]]])           size=[1,1,2,2]
+pool_2=torch.nn.MaxPool2d(kernel_size=2,ceil_mode=True)
+pool_2(x)
+# tensor([[[[ 0.9954,  1.7122,  0.2929],
+#           [ 0.2287,  0.4681, -0.4182],
+#           [-0.1063, -0.0056,  0.1979]]]]) size=[1,1,3,3]
+
+```

@@ -13,7 +13,13 @@ date: 2017-01-02 15:59:19
 
 ### nn.detach
 返回新的tensor,与原来的tensor共享数据，但是requires_grad=False
-
+```python
+x=torch.tensor([1.0,2.0,3.0],requires_grad=True)
+y=x.sigmoid().sum()  #tensor(2.5644, grad_fn=<SumBackward0>)
+z=y.detach()  #tensor(2.5644),z.backward()无效,因为grad_fn=None
+z.zero_()     #z=y=tensor(0.0),y与z共享变量
+y.backward()  #y可以求向前求梯度
+```
 
 
 ### 杀死进程
@@ -116,3 +122,4 @@ The sum operation still operates over all the elements, and divides by `n`.
 
 The division by `n` can be avoided if one sets the constructor argument
 `size_average=False`.
+
