@@ -42,3 +42,80 @@ AUC(Area Under Curve)表示ROC曲线的面积,小于1
 #### 反响传播公式推导
 
 >$\begin{array} { l l } { \delta ^ { L } = \nabla _ { a } C \odot \sigma ^ { \prime } \left( z ^ { L } \right) } & { ( B P 1 ) } \\ { \delta ^ { l } = \left( \left( W ^ { l + 1 } \right) ^ { T } \delta ^ { l + 1 } \right) \odot \sigma ^ { \prime } \left( z ^ { l } \right) } & { ( B P 2 ) } \\ { \frac { \partial C } { \partial b _ { j } ^ { l } } = \delta _ { j } ^ { l } } & { ( B P 3 ) } \\ { \frac { \partial C } { \partial w _ { j k } ^ { l } } = a _ { k } ^ { l - 1 } \delta _ { j } ^ { l } } & { ( B P 4 ) } \end{array}$
+
+
+https://zhuanlan.zhihu.com/p/37916911
+
+>$\delta ^ { L } = \nabla _ { a } C \odot \sigma ^ { \prime } \left( z ^ { L } \right)$
+
+如果：$Y = \sigma ( X )$，那么
+$\frac { \partial C } { \partial X } = \frac { \partial C } { \partial Y } \odot \sigma ^ { \prime } ( X )$，其中
+$\sigma(x)是激活函数$
+----
+
+
+>$\delta ^ { l } = \left( \left( W ^ { l + 1 } \right) ^ { T } \delta ^ { l + 1 } \right) \odot \sigma ^ { \prime } \left( z ^ { l } \right)$
+
+
+>$\frac { \partial C } { \partial b _ { j } ^ { l } } = \delta _ { j } ^ { l }$
+
+
+>$\frac { \partial C } { \partial w _ { j k } ^ { l } } = a _ { k } ^ { l - 1 } \delta _ { j } ^ { l }$
+
+
+
+神经网络就是把 Y=W\cdot X_l+B，X_{l+1}=f(Y) 反复套用的过程。其中 f 为激活函数。
+
+在最后，损失函数 Lost=C(X_L) ， l 是其中某一层， L 神经网络层数（最后一层），即 l 的最大值。
+
+### 总结
+神经网络就是把 $Y=W\cdot X_l+B，X_{l+1}=f(Y)$ 反复套用的过程。其中 `f `为激活函数。
+
+在最后，损失函数 $Loss=C(X_L)$ ，`l` 是其中某一层， L 神经网络层数（最后一层），即 `l` 的最大值。
+反向传播：
+* (1)首先计算 $\frac{\partial C}{\partial X_L}$
+* (2)计算 $\frac{\partial C}{\partial Y}$
+* (3)计算$\frac{\partial C}{\partial W}，\frac{\partial C}{\partial X_l}，\frac{\partial C}{\partial B}$ 
+
+(2)--(3)--(2)-(3)--.反复循环，直到输入层
+
+(1)计算 $\frac{\partial C}{\partial X_L}$
+
+
+##### Sarsa和Qlearning的对比
+
+* Sarsa
+
+>$Q ( S , A ) \leftarrow Q ( S , A ) + \alpha \left[ R + \gamma Q \left( S ^ { \prime } , A ^ { \prime } \right) - Q ( S , A ) \right]$
+
+处于状态 s 时，根据当前 Q网络以及一定的策略来选取动作 a，进而观测到下一步状态 s'，并再次根据当前 Q 网络及相同的策略选择动作 a'，这样就有了一个[ s，a，r，s'，a']序列。
+处于状态 s' 时，就知道了要采取哪个 a'，并真的采取了这个动作。动作 a 的选取遵循 e-greedy 策略，目标 Q 值的计算也是根据策略得到的动作 a' 计算得来。
+
+
+* Qlearning
+
+>$Q ( S , A ) \leftarrow Q ( S , A ) + \alpha \left[ R + \gamma \max _ { a } Q \left( S ^ { \prime } , a \right) - Q ( S , A ) \right]$
+
+处于状态 s 时，根据当前 Q 网络以及一定的策略来选取动作 a ，进而观测到下一状态 s' ，并再次根据当前 Q 网络计算出 下一步采取哪个动作会得到 max Q  值，用这个 Q 值作为当前状态动作对 Q 值的目标。这样就有了一个[s，a，r，s']序列。
+处于状态 s' 时，仅计算了 在 s' 时要采取哪个 a' 可以得到更大的 Q 值，并没有真的采取这个动作 a'；动作 a 的选取是根据当前 Q 网络以及策略（e-greedy），目标 Q 值的计算是根据 Q 值最大的动作 a' 计算得来
+
+
+
+#### 策略梯度
+
+
+* Bellman公式的核心是求精确的值函数，然后求最优的策略$\pi^*$
+$\boldsymbol { a } ^ { * } = \operatorname { argmax } _ { \boldsymbol { a } } Q ( \boldsymbol { s } , \boldsymbol { a } ) , \boldsymbol { a } ^ { * } = \pi ^ { * } ( \boldsymbol { s } )$
+
+* 策略梯度采用了另外一种思路，其目标是最大化长期回报期望，其中$\tau$ 代表轨迹序列，$r(\tau)$代表这条轨迹序列的总体回报。
+$\pi ^ { * } = \operatorname { argmax } _ { \pi } E _ { \tau \sim \pi ( \tau ) } [ r ( \tau ) ]$
+
+求策略梯度的步骤
+* (1)计算$\nabla _ { \theta } J ( \theta )$
+* (2)$\tilde { \theta } = \theta + \alpha \nabla _ { \theta } J ( \theta )$
+
+其中
+$\begin{aligned} \nabla _ { \theta } J ( \theta ) & = \int _ { \tau \sim \pi _ { \theta } ( \tau ) } \pi _ { \theta } ( \tau ) \nabla _ { \theta } \log \pi _ { \theta } ( \tau ) r ( \tau ) \mathrm { d } \tau \\ & = E _ { \tau \sim \pi _ { \theta } ( \tau ) } \left[ \nabla _ { \theta } \log \pi _ { \theta } ( \tau ) r ( \tau ) \right] \end{aligned}$
+
+即当前$log(p(s,a))*r(s,a)$
+
