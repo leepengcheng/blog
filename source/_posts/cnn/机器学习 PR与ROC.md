@@ -37,3 +37,8 @@ ROC(Receuver Characterristic Curvve),受试者工作特征曲线，又称感受�
 优点：当测试集中的正负样本的分布变化的时候（例如负样本远多余正样本）,能够保持不变。   
 ROC：X轴：FPR  Y轴：TPR，  
 AUC(Area Under Curve)表示ROC曲线的面积,小于1
+
+
+#### 反响传播公式推导
+
+>$\begin{array} { l l } { \delta ^ { L } = \nabla _ { a } C \odot \sigma ^ { \prime } \left( z ^ { L } \right) } & { ( B P 1 ) } \\ { \delta ^ { l } = \left( \left( W ^ { l + 1 } \right) ^ { T } \delta ^ { l + 1 } \right) \odot \sigma ^ { \prime } \left( z ^ { l } \right) } & { ( B P 2 ) } \\ { \frac { \partial C } { \partial b _ { j } ^ { l } } = \delta _ { j } ^ { l } } & { ( B P 3 ) } \\ { \frac { \partial C } { \partial w _ { j k } ^ { l } } = a _ { k } ^ { l - 1 } \delta _ { j } ^ { l } } & { ( B P 4 ) } \end{array}$
