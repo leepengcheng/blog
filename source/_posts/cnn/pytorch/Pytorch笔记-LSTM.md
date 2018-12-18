@@ -111,5 +111,5 @@ $h _ { t } = \left( 1 - z _ { t } \right) * h _ { t - 1 } + z _ { t } * \tilde {
 * 标准LSTM和GRU的差别并不大，但是都比tanh要明显好很多，所以在选择标准LSTM或者GRU的时候还要看具体的任务是什么。 
 使用LSTM的原因之一是解决RNN Deep Network的Gradient错误累积太多，以至于Gradient归零或者成为无穷大，所以无法继续进行优化的问题。GRU的构造更简单：比LSTM少一个gate，这样就少几个矩阵乘法。在训练数据很大的情况下GRU能节省很多时间。
 
-* LSTM通过门的控制，可以有效的防止梯度消失，（敲黑板！！！）但是依旧可能出现梯度爆炸的问题，所以训练LSTM会加入梯度裁剪（Gradient Clipping）。在Pytorch中梯度裁剪可以使用
+* LSTM通过门的控制，可以有效的防止梯度消失，但是依旧可能出现梯度爆炸的问题，所以训练LSTM会加入梯度裁剪（Gradient Clipping）。在Pytorch中梯度裁剪可以使用
 `nn.utils.clip_grad_norm(filter(lambda p:p.requires_grad,model.parameters()),max_norm=max_norm)`
