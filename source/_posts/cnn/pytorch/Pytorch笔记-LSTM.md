@@ -6,91 +6,110 @@ tags:
 date: 2017-01-02 15:59:19
 ---
 
-#### torch.gather
-```python
-torch.gather(input, dim, index, out=None) → Tensor
-#按照制定轴dim获得数据,等价于tensor.gather(dim,index)
-#index 为LongthTensor不是FloatTensor
-#N=index[i][j][k]
-#out[i][j][k] = input[N][j][k]  # if dim == 0
-#out[i][j][k] = input[i][N][k]  # if dim == 1
-#out[i][j][k] = input[i][j][N]  # if dim == 2
+![LSTM](../../../assets/cnn/LSTM.png  "LSTM")
 
->>> t = torch.Tensor([[1,2],[3,4]])
->>> torch.gather(t, 1, torch.LongTensor([[0,0],[1,0]]))
-#index和input的batch_size一样(行数目一致))
-#[1,2]的index[0,0]为[1,1]
-#[3,4]的index[1,0]为[4,3]
-#输出：
-#1  1  
-#4  3 
+
+
+#### 标准RNN
+标准的RNN结构中只有一个神经元，一个`tanh`层进行重复的学习，这样会存在一些弊端。例如，在比较长的环境中，例如在`I grew up in France… I speak fluent French`中去预测最后的`French`，那么模型会推荐一种语言的名字，但是预测具体是哪一种语言时就需要用到很远以前的`Franch`，这就说明在长环境中相关的信息和预测的词之间的间隔可以是非常长的。在理论上，RNN 绝对可以处理这样的长环境问题。人们可以仔细挑选参数来解决这类问题中的最初级形式，但在实践中，RNN 并不能够成功学习到这些知识。然而，LSTM模型就可以解决这一问题。
+##### nn.RNNCell
+>$h' = \tanh(w_{ih} x + b_{ih}  +  w_{hh} h + b_{hh})$
+
+**Example:**
+```python
+rnn = nn.RNNCell(10, 20)
+input = torch.randn(6, 3, 10)
+hx = torch.randn(3, 20)
+output = []
+for i in range(6):
+    hx = rnn(input[i], hx)
+    output.append(hx)
 ```
 
 
-#### torch.Tensor.scatter_
-```python
-torch.gather(input, dim, index, out=None) → Tensor
-#按照制定轴dim获得数据,等价于tensor.gather(dim,index)
-#index 为LongthTensor不是FloatTensor
-#N=index[i][j][k]
-#out[i][j][k] = input[N][j][k]  # if dim == 0
-#out[i][j][k] = input[i][N][k]  # if dim == 1
-#out[i][j][k] = input[i][j][N]  # if dim == 2
+#### LSTM
+LSTM模型是由t时刻的输入词$X_t$，细胞状态$C_t$，临时细胞状态$\widetilde C_t$，隐层状态$h_t$，遗忘门$f_t$，记忆门$i_t$，输出门$O_t$组成。LSTM的计算过程可以概括为，通过对细胞状态中信息遗忘和记忆新的信息使得对后续时刻计算有用的信息得以传递，而无用的信息被丢弃，并在每个时间步都会输出隐层状态$h_t$，其中遗忘，记忆与输出由通过上个时刻的隐层状态$h_{t-1}$和当前输入$X_t$计算出来的遗忘门$f_t$，记忆门$i_t$，输出门$O_t$来控制。
 
->>> t = torch.Tensor([[1,2],[3,4]])
->>> torch.gather(t, 1, torch.LongTensor([[0,0],[1,0]]))
-#index和input的batch_size一样(行数目一致))
-#[1,2]的index[0,0]为[1,1]
-#[3,4]的index[1,0]为[4,3]
-#输出：
-#1  1  
-#4  3 
-```
 
-#### torch.clamp
-```python
-torch.clamp(input, min, max, out=None) → Tensor
-#将tensor限制在[min, max]范围内，等价于tensor.clamp(min,max)
-#当只有min或者max时则限制最小或者最大值
-#      | min, if x_i < min
-#y_i = | x_i, if min <= x_i <= max
-#      | max, if x_i > max
->>> x=torch.Tensor([1.38690.3912,-0.8634,-0.5468])
->>> torch.clamp(x,0.5,1),torch.clamp(x,min=0.5),torch.clamp(x,max=1)
-```
+* 1.丢弃信息   
+$f_{ t } = \sigma \left( W_{f} \cdot \left[ h _ { t - 1 } , x _ { t } \right] + b _ { f } \right)$  
 
--------
-**(提示：pytorch 0.4已经废除Variable及volatile关键字)**   
-Variable的`requires_grad`与`volatile`参数:    
-在创建一个Variable是，有两个bool型参数可供选择，一个是`requires_grad`，一个是`Volatile`
-* `requires_grad`不是十分对该Variable进行计算梯度，一般在finetune是可以用来固定某些层的参数，减少计算。
-只要有一个叶节点是True，其后续的节点都是True
-* `volatile=True`，一般用在训练好网络，只进行inference操作时使用，其不建立Variable与Function的关系。
-只要有一个叶子节点是True，其后节点都是True
---------
+* 2.确定更新信息  
+$i _ { t } = \sigma \left( W _ { i } \cdot \left[ h _ { t - 1 } , x _ { t } \right] + b _ { i } \right)$   
+$\tilde { C } _ { t } = \tanh \left( W _ { C } \cdot \left[ h _ { t - 1 } , x _ { t } \right] + b _ { C } \right)$
 
-#### torch.nn.Conv2d
-```python
-class torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1, bias=True)
+* 3.更新细胞状态   
+$C_{ t } = f_ { t } * C _ { t - 1 } + i _ { t } * \tilde { C } _ { t }$
 
-二维卷积层, 输入的尺度是(N, C_in,H,W)，输出尺度（N,C_out,H_out,W_out）的计算方式：
+* 4.输出信息   
+$o _ { t } = \sigma \left( W _ { o } \left[ h _ { t - 1 } , x _ { t } \right] + b _ { o } \right)$   
+$h _ { t } = o _ { t } * \tanh \left( C _ { t } \right)$
+##### torch.nn.LSTM
 
-说明
-bigotimes: 表示二维的相关系数计算 stride: 控制相关系数的计算步长
-dilation: 用于控制内核点之间的距离，详细描述在这里
-groups: 控制输入和输出之间的连接： group=1，输出是所有的输入的卷积；group=2，此时相当于有并排的两个卷积层，
-每个卷积层计算输入通道的一半，并且产生的输出是输出通道的一半，随后将这两个输出连接起来。
+* 参数:
+    - **input_size**:  输入数据'x'的特征数
+    - **hidden_size**: 输出`h` 的特征数 
+    - **num_layers**: Number of recurrent layers. E.g., setting ``num_layers=2``
+        would mean stacking two LSTMs together to form a `stacked LSTM`,
+        with the second LSTM taking in outputs of the first LSTM and
+        computing the final results. Default: 1
+    - **bias**: 为False时无bias偏置项,Default: True
+    - **batch_first**: 为True时，输入的表达方式为(batch_size,序列长度,特征数目)，Default: False
+    - **dropout**: 不为0时会在每层LSTM(最后1层除外)添加droupout层，Default: 0
+    - **bidirectional**: 为True时变为双向LSTM, Default:False
+* 输入:input, (h_0, c_0)
+  - **input** of shape `(seq_len, batch, input_size)`: tensor containing the features
+    of the input sequence.
+    The input can also be a packed variable length sequence.
+    See :func:`torch.nn.utils.rnn.pack_padded_sequence` or
+    :func:`torch.nn.utils.rnn.pack_sequence` for details.
+  - **h_0** of shape `(num_layers * num_directions, batch, hidden_size)`: tensor
+    containing the initial hidden state for each element in the batch.
+    If the RNN is bidirectional, num_directions should be 2, else it should be 1.
+  - **c_0** of shape `(num_layers * num_directions, batch, hidden_size)`: tensor
+    containing the initial cell state for each element in the batch.
+    If `(h_0, c_0)` is not provided, both **h_0** and **c_0** default to zero.
+* 输出: output, (h_n, c_n)
+    - **output** of shape `(seq_len, batch, num_directions * hidden_size)`: tensor
+      containing the output features `(h_t)` from the last layer of the LSTM,
+      for each t. If a :class:`torch.nn.utils.rnn.PackedSequence` has been
+      given as the input, the output will also be a packed sequence.
 
-参数kernel_size，stride,padding，dilation也可以是一个int的数据，此时卷积height和width值相同;
-也可以是一个tuple数组，tuple的第一维度表示height的数值，tuple的第二维度表示width的数值
+      For the unpacked case, the directions can be separated
+      using ``output.view(seq_len, batch, num_directions, hidden_size)``,
+      with forward and backward being direction `0` and `1` respectively.
+      Similarly, the directions can be separated in the packed case.
+    - **h_n** of shape `(num_layers * num_directions, batch, hidden_size)`: tensor
+      containing the hidden state for `t = seq_len`.
 
-参数：
-in_channels(int) – 输入信号的通道
-out_channels(int) – 卷积产生的通道
-kerner_size(int or tuple) - 卷积核的尺寸
-stride(int or tuple, optional) - 卷积步长
-padding(int or tuple, optional) - 输入的每一条边补充0的层数
-dilation(int or tuple, optional) – 卷积核元素之间的间距
-groups(int, optional) – 从输入通道到输出通道的阻塞连接数
-bias(bool, optional) - 如果bias=True，添加偏置
-```
+      Like *output*, the layers can be separated using
+      ``h_n.view(num_layers, num_directions, batch, hidden_size)`` and similarly for *c_n*.
+    - **c_n** (num_layers * num_directions, batch, hidden_size): tensor
+      containing the cell state for `t = seq_len`
+
+#### GRU
+
+GRU作为LSTM的一种变体，将忘记门和输入门合成了一个单一的更新门。   
+同样还混合了细胞状态和隐藏状态，加诸其他一些改动。   
+最终的模型比标准的 LSTM 模型要简单，也是非常流行的变体。  
+
+$z _ { t } = \sigma \left( W _ { z } \cdot \left[ h _ { t - 1 } , x _ { t } \right] \right)$
+
+$r _ { t } = \sigma \left( W _ { r } \cdot \left[ h _ { t - 1 } , x _ { t } \right] \right)$
+
+$\tilde { h } _ { t } = \tanh \left( W \cdot \left[ r _ { t } * h _ { t - 1 } , x _ { t } \right] \right)$
+ 
+$h _ { t } = \left( 1 - z _ { t } \right) * h _ { t - 1 } + z _ { t } * \tilde { h } _ { t }$
+
+#### 双向LSTM
+![LSTM](../../../assets/cnn/BiLSTM.png  "LSTM")
+前向的LSTM与后向的LSTM结合成BiLSTM。比如，我们对`我爱中国`这句话进行编码，如上图所示。    
+前向的$LSTM_L$依次输入`我`|`爱`|`中国`得到三个向量{$H_{L0},H_{L1},H_{L2}$}。后向的$LSTM_R$依次输入`中国`|`爱`|`我`得到三个向量{$H_{R0},H_{R1},H_{R2}$}。     
+最后将前向和后向的隐向量进行拼接得到{$[H_{L0},H_{R0}], [H_{L1},H_{R1}], [H_{L2},H_{R2}]$}，即{$h_0,h_1,h_2$}。   
+对于情感分类任务来说，我们采用的句子的表示往往是$[H_{L2},H_{R2}]$。因为其包含了前向与后向的所有信息
+#### 总结
+* 标准LSTM和GRU的差别并不大，但是都比tanh要明显好很多，所以在选择标准LSTM或者GRU的时候还要看具体的任务是什么。 
+使用LSTM的原因之一是解决RNN Deep Network的Gradient错误累积太多，以至于Gradient归零或者成为无穷大，所以无法继续进行优化的问题。GRU的构造更简单：比LSTM少一个gate，这样就少几个矩阵乘法。在训练数据很大的情况下GRU能节省很多时间。
+
+* LSTM通过门的控制，可以有效的防止梯度消失，（敲黑板！！！）但是依旧可能出现梯度爆炸的问题，所以训练LSTM会加入梯度裁剪（Gradient Clipping）。在Pytorch中梯度裁剪可以使用
+`nn.utils.clip_grad_norm(filter(lambda p:p.requires_grad,model.parameters()),max_norm=max_norm)`
