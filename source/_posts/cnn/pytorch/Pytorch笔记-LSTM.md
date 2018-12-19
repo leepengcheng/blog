@@ -87,6 +87,44 @@ $h _ { t } = o _ { t } * \tanh \left( C _ { t } \right)$
     - **c_n** (num_layers * num_directions, batch, hidden_size): tensor
       containing the cell state for `t = seq_len`
 
+##### torch.nn.LSTMCell
+LSTMCell为单个LSTM单元,每次输入的序列长度为1,对于序列需要自己迭代。
+双向LSTM也需要自己搭建，灵活性较高。
+*   参数:
+    - input_size: The number of expected features in the input `x`
+    - hidden_size: The number of features in the hidden state `h`
+    - bias: If `False`, then the layer does not use bias weights `b_ih` and
+            `b_hh`. Default: ``True``
+
+*   输入: input, (h_0, c_0)
+      - **input** of shape `(batch, input_size)`: tensor containing input features
+      - **h_0** of shape `(batch, hidden_size)`: tensor containing the initial hidden
+        state for each element in the batch.
+      - **c_0** of shape `(batch, hidden_size)`: tensor containing the initial cell state
+        for each element in the batch.
+        If `(h_0, c_0)` is not provided, both **h_0** and **c_0** default to zero.
+
+*   输出: h_1, c_1
+      - **h_1** of shape `(batch, hidden_size)`: tensor containing the next hidden state
+        for each element in the batch
+      - **c_1** of shape `(batch, hidden_size)`: tensor containing the next cell state
+        for each element in the batch
+
+
+```python
+#input_size,hidden_size
+rnn = nn.LSTMCell(10, 20)
+#seq_len,batch,input_size,注意第6指的是序列长度
+input = torch.randn(6, 3, 10)
+hx = torch.randn(3, 20)
+cx = torch.randn(3, 20)
+output = []
+#序列迭代
+for i in range(6):
+    hx, cx = rnn(input[i], (hx, cx))
+    output.append(hx)
+```
+
 #### GRU
 
 GRU作为LSTM的一种变体，将忘记门和输入门合成了一个单一的更新门。   

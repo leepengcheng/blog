@@ -94,3 +94,18 @@ dilation(int or tuple, optional) – 卷积核元素之间的间距
 groups(int, optional) – 从输入通道到输出通道的阻塞连接数
 bias(bool, optional) - 如果bias=True，添加偏置
 ```
+
+#### torch.chunk | torch.split
+`torch.cat`的反操作，将tensor按照制定的维度(dim)分割
+`tensor.split(split_size, dim=0)`
+`tensor.chunk(chunks, dim=0)`
+区别：`split`输入的是分割后单个chunk的大小`split_size`;   
+`chunk`输入的是chunk的数量`chunks`,`dim`为指定分割的维度。
+分割的最后1个chunk的数量最小。
+```python
+x=torch.randn((2,5,3))
+y=torch.chunk(x,3,1)
+# len(y)=3 y[0].shape=(2,2,3) y[2].shape=(2,1,3)
+z=torch.split(x,4,1)
+# len(z)=2 z[0].shape=(2,4,3) z[1].shape=(2,1,3)
+```
