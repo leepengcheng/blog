@@ -1,8 +1,8 @@
 ---
-title: Pytorch笔记-Tensor
+title: Pytorch笔记-LSTM
 categories: ml 
 tags:
-  - pytorch
+  - LSTM
 date: 2017-01-02 15:59:19
 ---
 
@@ -88,7 +88,7 @@ $h _ { t } = o _ { t } * \tanh \left( C _ { t } \right)$
       containing the cell state for `t = seq_len`
 
 ##### torch.nn.LSTMCell
-LSTMCell为单个LSTM单元,每次输入的序列长度为1,对于序列需要自己迭代。
+LSTMCell为单个LSTM单元,每次输入的序列长度为1,对于length>1的序列需要自己迭代。
 双向LSTM也需要自己搭建，灵活性较高。
 *   参数:
     - input_size: The number of expected features in the input `x`
