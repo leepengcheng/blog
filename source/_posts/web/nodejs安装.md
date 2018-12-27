@@ -16,3 +16,5 @@ n stable                       安装最新稳定版Node
 n lts                          安装最新长期维护版(lts)Node
 n <version>                    根据提供的版本号安装Node
 ```
+
+a
