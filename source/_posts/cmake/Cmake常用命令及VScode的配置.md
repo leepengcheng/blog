@@ -181,7 +181,7 @@ file(RENAME "test.txt"  "test1.txt")            #重命名
 file(REMOVE "test.txt")                         #删除文件  
 file(TIMESTAMP ${PROJECT_SOURCE_DIR}/test.txt  filestamp) #文件创建时间戳记
 file(DOWNLOAD www.baidu.com/data.txt ./data.txt 5)          #下载文件
-file(COPY )
+FILE(COPY ../../devel/lib/libcanprocess.so  DESTINATION ${CAN_PROJECT_DIR}/can/lib/) #注意后面的路径尾部加斜杠/
 file(GLOB variable [RELATIVE path] [globbing expressions]...) #搜索文件
 file(GLOB ADSLIB_SRC src/AdsLib/*.cpp src/AdsLib/*.h)
 file(GLOB_RECURSE variable [RELATIVE path]
